@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.aigc.vrmetal.mapper.UserMapper">
+    <update id="change">
+        update user
+        <set>
+            <if test="userDto.username!= null and userDto.username!=''">
+                username=#{userDto.username},
+            </if>
+            <if test="userDto.password!= null and userDto.password!=''">
+                password=#{userDto.password},
+            </if>
+            <if test="userDto.phoneNumber!= null and userDto.phoneNumber!=''">
+                phoneNumber=#{userDto.phoneNumber},
+            </if>
+            <if test="userDto.age!= null and userDto.age!=''">
+                age=#{userDto.age},
+            </if>
+            <if test="userDto.portrait!= null and userDto.portrait!=''">
+                portrait=#{userDto.portrait},
+            </if>
+        </set>
+        where id=#{userDto.id}
+    </update>
+
+    <select id="userPageQuery" resultType="com.aigc.vrmetal.pojo.entity.User">
+        select * from user
+        <where>
+            <if test="pageQueryDto.username != null and pageQueryDto.username != ''">
+                and username= #{pageQueryDto.username}
+            </if>
+            <if test="pageQueryDto.phoneNumber != null and pageQueryDto.phoneNumber != ''">
+                and phone_number= #{pageQueryDto.phoneNumber}
+            </if>
+        </where>
+    </select>
+</mapper>

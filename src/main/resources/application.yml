@@ -1,0 +1,25 @@
+
+server:
+  port: 9999
+logging:
+  level:
+    com.aigc.vrmetal: debug
+spring:
+  config:
+    import: classpath:/application.yml,classpath:/datasource.yml
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+my:
+  jwt:
+    userSecretKey: gws
+    userTtl: 18000000000
+    userTokenName: token
+  alioss:
+    endpoint: oss-cn-hangzhou.aliyuncs.com
+    accessKeyId: LTAI5tRqNf5HmrE8iT24br6J
+    accessKeySecret: qSg26ZQHcMbHK0NH2SUzOP1E3VgdwH
+    bucketName: test-7758

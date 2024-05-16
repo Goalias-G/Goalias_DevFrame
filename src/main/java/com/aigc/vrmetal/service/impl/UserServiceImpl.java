@@ -1,0 +1,154 @@
+package com.aigc.vrmetal.service.impl;
+
+import cn.hutool.jwt.JWT;
+import cn.hutool.jwt.JWTUtil;
+import com.aigc.vrmetal.pojo.dto.PageQueryDto;
+import com.aigc.vrmetal.pojo.dto.PhoneLoginDto;
+import com.aigc.vrmetal.pojo.dto.UserDto;
+import com.aigc.vrmetal.pojo.entity.User;
+
+import com.aigc.vrmetal.pojo.vo.LoginVO;
+import com.aigc.vrmetal.pojo.vo.UserVo;
+import com.aigc.vrmetal.properties.JwtProperties;
+import com.aigc.vrmetal.service.IUserService;
+import com.aigc.vrmetal.utils.JwtUtil;
+import com.aliyun.dysmsapi20170525.Client;
+import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
+import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
+import com.aliyun.tea.TeaException;
+import com.aliyun.teautil.models.RuntimeOptions;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.aigc.vrmetal.mapper.UserMapper;
+import org.springframework.context.annotation.Primary;
+import org.springframework.core.task.SimpleAsyncTaskExecutor;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+
+/**
+ * <p>
+ *  服务实现类
+ * </p>
+ *
+ * @author gws
+ * @since 2024-03-10
+ */
+@Service
+@Primary
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+    @Resource
+    private UserMapper userMapper;
+    @Resource
+    private JwtProperties jwtProperties;
+
+    @Override
+    public LoginVO login(PhoneLoginDto phoneLoginDto) {
+        String phoneNum = phoneLoginDto.getPhoneNum();
+        String password = phoneLoginDto.getPassword();
+        QueryWrapper<User> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("phone_number",phoneNum);
+        User user = userMapper.selectOne(queryWrapper);
+        if (user == null || !password.equals(user.getPassword())) {
+            return null;
+        }
+        Map<String,Object> claims=new HashMap<>(2);
+        claims.put("userId",user.getId());
+        String jwt = JwtUtil.createJWT(jwtProperties.getUserSecretKey(),
+                jwtProperties.getUserTtl(), claims);
+        LoginVO loginVO = LoginVO.builder()
+                .id(user.getId().longValue())
+                .account(user.getAccount())
+                .token(jwt)
+                .build();
+        return loginVO;
+    }
+
+    @Override
+    public UserVo userPageQuery(PageQueryDto pageQueryDto) {
+        IPage<User> page=new Page<>(pageQueryDto.getPage(), pageQueryDto.getPageSize());
+        IPage<User> userPage=userMapper.userPageQuery(page,pageQueryDto);
+        UserVo userVo = UserVo.builder()
+                .userList(userPage.getRecords())
+                .total(userPage.getTotal())
+                .build();
+        return userVo;
+    }
+
+    @Override
+    public void change(UserDto userDto) {
+        userMapper.change(userDto);
+    }
+
+    @Override
+    public void sendCode(String phone) {
+        String message = null;
+        Random random=new Random();
+        StringBuilder code = new StringBuilder();
+        for (int i = 0; i < 6; i++) {
+            // 生成随机数字（0-9）
+            int digit = random.nextInt(1,10);
+            code.append(digit);
+        }
+        String s = code.toString();
+        SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
+                .setPhoneNumbers(phone)
+                .setSignName("AR心理医生")
+                .setTemplateCode("SMS_465407442")
+                .setTemplateParam("{'code':"+s+"}");
+
+        Client client = null;
+        try {
+            client = createClient();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        try {
+            // 复制代码运行请自行打印 API 的返回值
+            SendSmsResponse sendSmsResponse = client.sendSmsWithOptions(sendSmsRequest, new RuntimeOptions());
+            message = sendSmsResponse.getBody().getMessage();
+        } catch (TeaException error) {
+            // 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。
+            // 错误 message
+            System.out.println(error.getMessage());
+            // 诊断地址
+            System.out.println(error.getData().get("Recommend"));
+            com.aliyun.teautil.Common.assertAsString(error.message);
+        } catch (Exception _error) {
+            TeaException error = new TeaException(_error.getMessage(), _error);
+            // 此处仅做打印展示，请谨慎对待异常处理，在工程项目中切勿直接忽略异常。
+            // 错误 message
+            System.out.println(error.getMessage());
+            // 诊断地址
+            System.out.println(error.getData().get("Recommend"));
+            com.aliyun.teautil.Common.assertAsString(error.message);
+        }
+        if (message != null && message.equals("OK")) {
+            UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
+            updateWrapper.eq("phone_number", phone).set("password", s);//用redis设置过期时间最好
+            userMapper.update(updateWrapper);
+        }
+    }
+
+    public  com.aliyun.dysmsapi20170525.Client createClient() throws Exception {
+        // 工程代码泄露可能会导致 AccessKey 泄露，并威胁账号下所有资源的安全性。以下代码示例仅供参考，建议使用更安全的 STS 方式，更多鉴权访问方式请参见：https://help.aliyun.com/document_detail/378657.html。
+        com.aliyun.teaopenapi.models.Config config = new com.aliyun.teaopenapi.models.Config()
+                // 必填，请确保代码运行环境设置了环境变量 ALIBABA_CLOUD_ACCESS_KEY_ID。
+                .setAccessKeyId("LTAI5tRqNf5HmrE8iT24br6J")
+                // 必填，请确保代码运行环境设置了环境变量 ALIBABA_CLOUD_ACCESS_KEY_SECRET。
+                .setAccessKeySecret("qSg26ZQHcMbHK0NH2SUzOP1E3VgdwH");
+        // Endpoint 请参考 https://api.aliyun.com/product/Dysmsapi
+        config.endpoint = "dysmsapi.aliyuncs.com";
+        return new com.aliyun.dysmsapi20170525.Client(config);
+    }
+
+
+
+}
