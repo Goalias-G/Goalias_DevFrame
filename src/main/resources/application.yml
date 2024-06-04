@@ -16,7 +16,7 @@ mybatis-plus:
 my:
   jwt:
     userSecretKey: gws
-    userTtl: 18000000000
+    userTtl: 180000
     userTokenName: token
   alioss:
     endpoint: oss-cn-hangzhou.aliyuncs.com

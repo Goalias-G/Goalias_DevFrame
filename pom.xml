@@ -8,11 +8,11 @@
         <version>2.7.8</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
-    <groupId>com.aigc</groupId>
-    <artifactId>vrmetal</artifactId>
+    <groupId>com.dev</groupId>
+    <artifactId>model</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>vrmetal</name>
-    <description>vrmetal</description>
+    <name>DevModel</name>
+    <description>DevModel</description>
     <properties>
         <java.version>17</java.version>
     </properties>

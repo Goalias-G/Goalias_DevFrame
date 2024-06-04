@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.aigc.vrmetal.mapper.UserMapper">
+<mapper namespace="com.dev.model.mapper.UserMapper">
     <update id="change">
         update user
         <set>
@@ -23,7 +23,7 @@
         where id=#{userDto.id}
     </update>
 
-    <select id="userPageQuery" resultType="com.aigc.vrmetal.pojo.entity.User">
+    <select id="userPageQuery" resultType="com.dev.model.pojo.entity.User">
         select * from user
         <where>
             <if test="pageQueryDto.username != null and pageQueryDto.username != ''">
