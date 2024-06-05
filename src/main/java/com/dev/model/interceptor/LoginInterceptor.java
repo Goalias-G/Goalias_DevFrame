@@ -24,7 +24,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     private JwtProperties jwtProperties;
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
        /* response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Credentials", "true"); //允许浏览器读取response的内容
         response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS");// 允许HTTP请求的方法

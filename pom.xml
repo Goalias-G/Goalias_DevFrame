@@ -13,6 +13,7 @@
     <version>2.0.0</version>
     <name>Goalias_DevFrame</name>
     <description>一个用于快速构建和开发Spring Boot应用的高效脚手架</description>
+
     <properties>
         <java.version>17</java.version>
         <goalias.version>1.0.3</goalias.version>
@@ -21,8 +22,6 @@
         <mybatisPlus.version>3.5.4</mybatisPlus.version>
         <jjwt.version>0.9.1</jjwt.version>
         <jaxbApi.version>2.3.1</jaxbApi.version>
-        <swagger2.version>3.0.0</swagger2.version>
-        <swaggerUi.version>2.9.2</swaggerUi.version>
         <aliyunSdkOss.version>3.10.2</aliyunSdkOss.version>
         <hutool.version>5.8.18</hutool.version>
         <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
@@ -30,7 +29,9 @@
         <druid.version>1.2.9</druid.version>
         <minio.version>8.5.11</minio.version>
         <canal.version>1.1.5</canal.version>
+        <redisson.version>3.24.3</redisson.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>com.tool</groupId>
@@ -88,17 +89,6 @@
             <version>${jaxbApi.version}</version>
         </dependency>
         <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>${swagger2.version}</version>
-
-        </dependency>
-        <dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger-ui</artifactId>
-            <version>${swaggerUi.version}</version>
-        </dependency>
-        <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
             <version>${aliyunSdkOss.version}</version>
@@ -142,6 +132,11 @@
             <groupId>org.springframework.data</groupId>
             <artifactId>spring-data-redis</artifactId>
         </dependency>
+<!--        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>${redisson.version}</version>
+        </dependency>-->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-pool2</artifactId>

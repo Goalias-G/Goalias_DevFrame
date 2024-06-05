@@ -10,14 +10,20 @@ import java.util.concurrent.*;
 
 @Configuration
 public class AsyncConfig implements AsyncConfigurer {
-   public static ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(Runtime.getRuntime().availableProcessors(), Runtime.getRuntime().availableProcessors() * 2,
-            1, TimeUnit.SECONDS, new LinkedBlockingQueue<>(), ThreadFactoryBuilder.create().setNamePrefix("async thread-").build(),new ThreadPoolExecutor.CallerRunsPolicy());
+   public static ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(
+           Runtime.getRuntime().availableProcessors(),
+           Runtime.getRuntime().availableProcessors() * 2,
+            1,
+           TimeUnit.SECONDS,
+           new LinkedBlockingQueue<>(),
+           ThreadFactoryBuilder.create().setNamePrefix("async thread-").build(),
+           new ThreadPoolExecutor.CallerRunsPolicy());
     @Override
     public Executor getAsyncExecutor() {
         return threadPoolExecutor;
     }
 
-    @Bean(name = "taskExecutor1")//可以用async的value属性指定
+    @Bean(name = "taskExecutor")//可以用async的value属性指定
     public Executor taskExecutor1() {
         return Executors.newFixedThreadPool(10);
     }

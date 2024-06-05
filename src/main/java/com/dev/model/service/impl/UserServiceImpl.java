@@ -21,6 +21,8 @@ import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.properties.JwtProperties;
 import com.dev.model.service.IUserService;
 import com.dev.model.utils.JwtUtil;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

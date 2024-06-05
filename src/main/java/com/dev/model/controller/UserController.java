@@ -14,9 +14,6 @@ import com.dev.model.service.IUserService;
 import com.tool.goalias.annotation.GoaliasFallback;
 import com.tool.goalias.annotation.GoaliasHot;
 import com.tool.goalias.enums.FlowGradeEnum;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,11 +30,9 @@ import java.time.LocalDateTime;
  */
 @RestController
 @RequestMapping("/user")
-@Api(tags = "用户管理接口")
 public class UserController {
     @Resource
     private IUserService userService;
-    @ApiOperation("验证码接口")
     @PostMapping("getCode")
     @GoaliasFallback(grade = FlowGradeEnum.FLOW_GRADE_QPS,count = 1000)//QPS为1000则降级
     public Result getCode(@RequestBody String phone){
@@ -49,30 +44,26 @@ public class UserController {
         return Result.success();
     }
 
-    @ApiOperation("登录接口")
     @PostMapping("login")
-    public Result<LoginVO> login(@RequestBody @ApiParam(name = "phoneLoginDto",value = "账号密码",required = true) PhoneLoginDto phoneLoginDto){
+    public Result<LoginVO> login(@RequestBody PhoneLoginDto phoneLoginDto){
         LoginVO loginVO = userService.login(phoneLoginDto);
         if (loginVO == null) {
             return Result.error("账号或密码错误");
         }
         return Result.success(loginVO);
     }
-    @ApiOperation("分页获取用户信息")
     @GetMapping("getAll")
     @GoaliasHot(grade = FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1500)//1.5s内有一千个线程访问则限流
     public Result<UserVo> getAll(PageQueryDto pageQueryDto){
         UserVo userVo=userService.userPageQuery(pageQueryDto);
         return Result.success(userVo);
     }
-    @ApiOperation("添加用户")
     @GetMapping("add")
     public Result addUser(User user){
         user.setRegisterTime(LocalDateTime.now());
         userService.save(user);
         return Result.success();
     }
-    @ApiOperation("个人信息")
     @GetMapping("getOne")
     public Result getUser(){
         Long userId = UserContext.getCurrentId();
@@ -80,20 +71,17 @@ public class UserController {
         return Result.success(userById);
     }
     @GetMapping("/{id}")
-    @ApiOperation("根据id查询回显用户")
     public Result<User> getById(@PathVariable Long id){
         User user = userService.getById(id);
         return Result.success(user);
     }
 
-    @ApiOperation("修改信息")
     @PostMapping("change/{id}")
     public Result changeUser(@RequestBody UserDto userDto, @PathVariable String id){
         userDto.setId(Integer.parseInt(id));
         userService.change(userDto);
         return Result.success();
     }
-    @ApiOperation("修改信息")
     @PostMapping("update")
     public Result updateUser(@RequestBody UserDto userDto){
         Long userId = UserContext.getCurrentId();
@@ -101,7 +89,7 @@ public class UserController {
         userService.change(userDto);
         return Result.success();
     }
-    @ApiOperation("删除用户")
+//    @ApiOperation("删除用户")
     @PostMapping("deleteUser/{id}")
     public Result deleteOne(@PathVariable String id){
         userService.removeById(Integer.parseInt(id));
