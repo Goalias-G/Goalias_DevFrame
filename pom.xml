@@ -93,6 +93,17 @@
             <artifactId>druid-spring-boot-starter</artifactId>
             <version>1.2.9</version>
         </dependency>
+        <dependency>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson-spring-boot-starter</artifactId>
+            <version>3.24.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>3.2.0</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>
