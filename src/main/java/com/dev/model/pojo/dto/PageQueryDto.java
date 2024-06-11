@@ -14,7 +14,6 @@ public class PageQueryDto implements Serializable {
     }
 
     private int page;
-
     private int pageSize;
     private String username;
     private String phoneNumber;

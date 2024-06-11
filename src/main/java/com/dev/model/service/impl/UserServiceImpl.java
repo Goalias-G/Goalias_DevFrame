@@ -95,7 +95,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         String s = code.toString();
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(phone)
-                .setSignName("AR心理医生")
+                .setSignName("dev_frame")
                 .setTemplateCode("SMS_465407442")
                 .setTemplateParam("{'code':"+s+"}");
 
