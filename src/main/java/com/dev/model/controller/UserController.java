@@ -10,6 +10,8 @@ import com.dev.model.pojo.vo.LoginVO;
 import com.dev.model.pojo.vo.Result;
 import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.service.IUserService;
+import com.tool.goalias.annotation.GoaliasHot;
+import com.tool.goalias.enums.FlowGradeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -35,6 +37,7 @@ public class UserController {
     private IUserService userService;
     @ApiOperation("验证码接口")
     @PostMapping("getCode")
+    @GoaliasHot(grade= FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1000)
     public Result getCode(@RequestBody String phone){
         userService.sendCode(phone);
         return Result.success();
