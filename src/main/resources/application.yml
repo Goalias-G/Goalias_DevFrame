@@ -1,4 +1,3 @@
-
 server:
   port: 9999
 logging:
@@ -23,3 +22,9 @@ my:
     accessKeyId: LTAI5tRqNf5HmrE8iT24br6J
     accessKeySecret: qSg26ZQHcMbHK0NH2SUzOP1E3VgdwH
     bucketName: test-7758
+  minio:
+    endpoint: http://127.0.0.1:9000
+    accessKey: root
+    secretKey: 1234567890
+  log:
+    ison: on

@@ -1,5 +1,6 @@
 package com.dev.model.service.impl;
 
+import cn.hutool.core.util.RandomUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
@@ -86,18 +87,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void sendCode(String phone) {
         String message = null;
         Random random=new Random();
-        StringBuilder code = new StringBuilder();
-        for (int i = 0; i < 6; i++) {
-            // 生成随机数字（0-9）
-            int digit = random.nextInt(1,10);
-            code.append(digit);
-        }
-        String s = code.toString();
+        String code = RandomUtil.randomNumbers(6);
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(phone)
                 .setSignName("dev_frame")
                 .setTemplateCode("SMS_465407442")
-                .setTemplateParam("{'code':"+s+"}");
+                .setTemplateParam("{'code':"+code+"}");
 
         Client client = null;
         try {
@@ -127,7 +122,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         }
         if (message != null && message.equals("OK")) {
             UpdateWrapper<User> updateWrapper = new UpdateWrapper<>();
-            updateWrapper.eq("phone_number", phone).set("password", s);//用redis设置过期时间最好
+            updateWrapper.eq("phone_number", phone).set("password", code);//用redis设置过期时间最好
             userMapper.update(updateWrapper);
         }
     }

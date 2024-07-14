@@ -17,6 +17,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -35,16 +36,12 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * controller所有请求日志记录
- *
- * @author 卢光耀
- * @date 2019-08-06 14:14
  */
 @Slf4j
 @Aspect
 @Configuration
-@ConditionalOnProperty(prefix = "local", name = "log", havingValue = "on")
+@ConditionalOnProperty(prefix = "my", name = "log", havingValue = "on", matchIfMissing = true)
 public class RequestLogAspect {
-
 
     private static final Logger Goalias_LOGGER = LoggerFactory.getLogger("Goalias");
 

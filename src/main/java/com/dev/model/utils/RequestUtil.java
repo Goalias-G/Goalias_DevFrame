@@ -1,6 +1,5 @@
 package com.dev.model.utils;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.StringUtils;
 
@@ -8,19 +7,12 @@ import javax.servlet.http.HttpServletRequest;
 
 /**
  * request工具类
- * @author 卢光耀
- * @date 2019-08-07 10:27
  *
 */
 @Configuration
 public class RequestUtil {
 
     private static final String UNKNOWN = "unknown";
-
-    /**
-     * 主域名
-     */
-    public static String mainDomain;
 
     public static String getIp(HttpServletRequest request){
         String realip = request.getHeader("X-Real-IP");
@@ -57,8 +49,4 @@ public class RequestUtil {
         return forwardedip;
     }
 
-    @Value("${domain.main}")
-    public void setMainDomain(String mainDomainUrl){
-        mainDomain = mainDomainUrl;
-    }
 }

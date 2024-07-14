@@ -18,7 +18,6 @@ target/
 *.iws
 *.iml
 *.ipr
-/src/test/java/**
 
 ### NetBeans ###
 /nbproject/private/

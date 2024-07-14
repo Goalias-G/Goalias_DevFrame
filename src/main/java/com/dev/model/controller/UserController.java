@@ -10,8 +10,7 @@ import com.dev.model.pojo.vo.LoginVO;
 import com.dev.model.pojo.vo.Result;
 import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.service.IUserService;
-import com.tool.goalias.annotation.GoaliasHot;
-import com.tool.goalias.enums.FlowGradeEnum;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -37,7 +36,7 @@ public class UserController {
     private IUserService userService;
     @ApiOperation("验证码接口")
     @PostMapping("getCode")
-    @GoaliasHot(grade= FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1000)
+//    @GoaliasHot(grade= FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1000)
     public Result getCode(@RequestBody String phone){
         userService.sendCode(phone);
         return Result.success();
@@ -64,7 +63,7 @@ public class UserController {
         userService.save(user);
         return Result.success();
     }
-    @ApiOperation("用户个人信息")
+    @ApiOperation("个人信息")
     @GetMapping("getOne")
     public Result getUser(){
         Long userId = UserContext.getCurrentId();
@@ -72,20 +71,20 @@ public class UserController {
         return Result.success(userById);
     }
     @GetMapping("/{id}")
-    @ApiOperation("管理员根据id查询回显用户")
+    @ApiOperation("根据id查询回显用户")
     public Result<User> getById(@PathVariable Long id){
         User user = userService.getById(id);
         return Result.success(user);
     }
 
-    @ApiOperation("管理员修改信息")
+    @ApiOperation("修改信息")
     @PostMapping("change/{id}")
     public Result changeUser(@RequestBody UserDto userDto, @PathVariable String id){
         userDto.setId(Integer.parseInt(id));
         userService.change(userDto);
         return Result.success();
     }
-    @ApiOperation("用户修改信息")
+    @ApiOperation("修改信息")
     @PostMapping("update")
     public Result updateUser(@RequestBody UserDto userDto){
         Long userId = UserContext.getCurrentId();
@@ -93,7 +92,7 @@ public class UserController {
         userService.change(userDto);
         return Result.success();
     }
-    @ApiOperation("管理员删除")
+    @ApiOperation("删除用户")
     @PostMapping("deleteUser/{id}")
     public Result deleteOne(@PathVariable String id){
         userService.removeById(Integer.parseInt(id));
