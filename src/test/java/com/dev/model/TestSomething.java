@@ -1,12 +1,10 @@
 package com.dev.model;
 
-import com.dev.model.utils.MinIOUtil;
-import io.minio.MakeBucketArgs;
+import com.dev.model.pojo.dto.UserDto;
 import io.minio.MinioClient;
-import io.minio.errors.*;
-import io.minio.messages.Bucket;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.ApplicationEventPublisher;
 
 import javax.annotation.Resource;
 
@@ -15,12 +13,13 @@ import javax.annotation.Resource;
 public class TestSomething {
     @Resource
     private MinioClient minioClient;
+    @Resource
+    private ApplicationEventPublisher applicationEventPublisher;
     @Test
     public void test(){
-        try {
-            minioClient.makeBucket(MakeBucketArgs.builder().bucket("testbucket").build());
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+        UserDto userDto = new UserDto();
+        userDto.setId(1);
+        userDto.setPassword("<PASSWORD>");
+        applicationEventPublisher.publishEvent(userDto);
     }
 }

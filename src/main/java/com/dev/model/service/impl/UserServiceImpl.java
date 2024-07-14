@@ -21,6 +21,7 @@ import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.properties.JwtProperties;
 import com.dev.model.service.IUserService;
 import com.dev.model.utils.JwtUtil;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
@@ -44,6 +45,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Resource
     private JwtProperties jwtProperties;
+
+    @Resource
+    private ApplicationEventPublisher applicationEventPublisher;
 
     @Override
     public LoginVO login(PhoneLoginDto phoneLoginDto) {
@@ -80,6 +84,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void change(UserDto userDto) {
+        if (!userDto.getPassword().isEmpty()){
+            applicationEventPublisher.publishEvent(userDto);
+        }
         userMapper.change(userDto);
     }
 

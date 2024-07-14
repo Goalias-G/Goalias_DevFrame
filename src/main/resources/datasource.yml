@@ -5,6 +5,7 @@ spring:
     password: 1234
     url: jdbc:mysql://127.0.0.1:3306/vrmetal?serverTimezone=Asia/Shanghai&useUnicode=true&characterEncoding=utf-8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowPublicKeyRetrieval=true
     type: com.alibaba.druid.pool.DruidDataSource
+    #http://127.0.0.1:9999/druid/sql.html
     druid:
       # 初始化大小
       initial-size: 5
@@ -34,7 +35,7 @@ spring:
         # 访问监控页面 白名单，默认127.0.0.1
         allow: 127.0.0.1
         login-username: admin
-        login-password: admin
+        login-password: 1234
       # FilterStat
       filter:
         stat:
