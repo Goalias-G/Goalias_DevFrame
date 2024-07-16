@@ -18,8 +18,6 @@ target/
 *.iws
 *.iml
 *.ipr
-/src/main/resources/application.yml
-/src/main/resources/datasource.yml
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
