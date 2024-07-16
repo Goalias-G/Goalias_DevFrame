@@ -2,7 +2,7 @@ server:
   port: 9999
 logging:
   level:
-    com.aigc.vrmetal: debug
+    com.dev.model: debug
 spring:
   config:
     import: classpath:/application.yml,classpath:/datasource.yml
@@ -12,19 +12,4 @@ spring:
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
-my:
-  jwt:
-    userSecretKey: gws
-    userTtl: 180000
-    userTokenName: token
-  alioss:
-    endpoint: oss-cn-hangzhou.aliyuncs.com
-    accessKeyId: LTAI5tRqNf5HmrE8iT24br6J
-    accessKeySecret: qSg26ZQHcMbHK0NH2SUzOP1E3VgdwH
-    bucketName: test-7758
-  minio:
-    endpoint: http://127.0.0.1:9000
-    accessKey: root
-    secretKey: 1234567890
-  log:
-    ison: on
+#详细配置文件已忽略
