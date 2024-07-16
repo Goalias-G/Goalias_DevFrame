@@ -11,6 +11,9 @@ import com.dev.model.pojo.vo.Result;
 import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.service.IUserService;
 
+import com.tool.goalias.annotation.GoaliasFallback;
+import com.tool.goalias.annotation.GoaliasHot;
+import com.tool.goalias.enums.FlowGradeEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -36,11 +39,16 @@ public class UserController {
     private IUserService userService;
     @ApiOperation("验证码接口")
     @PostMapping("getCode")
-//    @GoaliasHot(grade= FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1000)
+    @GoaliasFallback(grade = FlowGradeEnum.FLOW_GRADE_QPS,count = 1000)//QPS为1000则降级
     public Result getCode(@RequestBody String phone){
         userService.sendCode(phone);
         return Result.success();
     }
+    public Result getCodeFallback(@RequestBody String phone){
+        userService.sendCode(phone);
+        return Result.success();
+    }
+
     @ApiOperation("登录接口")
     @PostMapping("login")
     public Result<LoginVO> login(@RequestBody @ApiParam(name = "phoneLoginDto",value = "账号密码",required = true) PhoneLoginDto phoneLoginDto){
@@ -52,6 +60,7 @@ public class UserController {
     }
     @ApiOperation("分页获取用户信息")
     @GetMapping("getAll")
+    @GoaliasHot(grade = FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1500)//1.5s内有一千个线程访问则限流
     public Result<UserVo> getAll(PageQueryDto pageQueryDto){
         UserVo userVo=userService.userPageQuery(pageQueryDto);
         return Result.success(userVo);

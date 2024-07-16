@@ -65,7 +65,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 jwtProperties.getUserTtl(), claims);
         LoginVO loginVO = LoginVO.builder()
                 .id(user.getId().longValue())
-                .account(user.getAccount())
+                .account(user.getUsername())
                 .token(jwt)
                 .build();
         return loginVO;

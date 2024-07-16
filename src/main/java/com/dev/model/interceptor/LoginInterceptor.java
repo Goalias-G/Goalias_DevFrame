@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
 
@@ -47,7 +48,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             response.setStatus(401);
             return false;
         }
-        if (userId == null&&userId.equals("")) {
+        if (StringUtils.hasText(userId.toString())) {
             response.setStatus(401);
             return false;
         }

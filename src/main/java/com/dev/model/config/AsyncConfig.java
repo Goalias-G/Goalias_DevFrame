@@ -22,13 +22,13 @@ public class AsyncConfig implements AsyncConfigurer {
         return Executors.newFixedThreadPool(10);
     }
 
-    @Bean(name = "taskExecutor2")
-    public Executor taskExecutor2() {
+    @Bean(name = "canal")
+    public Executor canalExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("MyExecutor-");
+        executor.setThreadNamePrefix("canal-");
         executor.initialize();
         return executor;
     }

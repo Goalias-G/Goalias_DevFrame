@@ -10,8 +10,11 @@ import org.springframework.context.annotation.Configuration;
 @ConfigurationProperties(prefix = "my.minio")
 @Data
 public class MinioConfig {
+
     private String endpoint;
+
     private String accessKey;
+
     private String secretKey;
     @Bean
     public MinioClient minioClient() {

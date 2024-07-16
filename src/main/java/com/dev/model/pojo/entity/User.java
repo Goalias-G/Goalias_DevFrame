@@ -11,6 +11,7 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 import org.springframework.format.annotation.DateTimeFormat;
 
+
 /**
  * <p>
  * 
@@ -30,7 +31,6 @@ public class User implements Serializable {
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
-    private String account;
     private String sex;
 
     private String username;
@@ -40,11 +40,8 @@ public class User implements Serializable {
     private String phoneNumber;
 
     private Integer age;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
     private LocalDateTime registerTime;
-    @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    private LocalDateTime chatTime;
-    private String portrait;
-
 
 }

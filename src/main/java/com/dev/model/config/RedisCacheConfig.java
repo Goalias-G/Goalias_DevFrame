@@ -1,17 +1,21 @@
 package com.dev.model.config;
 
+import com.dev.model.context.CanalClient;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.JdkSerializationRedisSerializer;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+import javax.annotation.Resource;
 import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -19,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 public class RedisCacheConfig extends CachingConfigurerSupport {
+
+
     @Bean
     @Override
     public KeyGenerator keyGenerator() {
@@ -70,7 +76,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
     }
-/*    @Bean
+    @Bean
     public StringRedisTemplate stringRedisTemplate(RedisConnectionFactory redisConnectionFactory){
         StringRedisTemplate stringRedisTemplate = new StringRedisTemplate();
         stringRedisTemplate.setConnectionFactory(redisConnectionFactory);
@@ -82,7 +88,7 @@ public class RedisCacheConfig extends CachingConfigurerSupport {
         stringRedisTemplate.setHashValueSerializer(new JdkSerializationRedisSerializer());
         stringRedisTemplate.afterPropertiesSet();
         return stringRedisTemplate;
-    }*/
+    }
 
 
 }

@@ -7,6 +7,7 @@ import com.dev.model.pojo.vo.Result;
 import com.dev.model.utils.RequestUtil;
 import com.google.common.base.Stopwatch;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import org.aspectj.lang.ProceedingJoinPoint;
