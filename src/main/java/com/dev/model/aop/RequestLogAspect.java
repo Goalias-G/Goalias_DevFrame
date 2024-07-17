@@ -41,7 +41,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Aspect
 @Configuration
-@ConditionalOnProperty(prefix = "my", name = "log", havingValue = "on", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "goalias", name = "log", havingValue = "on", matchIfMissing = true)
 public class RequestLogAspect {
 
     private static final Logger Goalias_LOGGER = LoggerFactory.getLogger("Goalias");

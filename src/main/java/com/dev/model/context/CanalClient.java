@@ -6,12 +6,10 @@ import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.dev.model.canal.UserCanalHandleServiceImpl;
 import com.dev.model.config.CanalConfig;
-import com.dev.model.canal.CanalHandleService;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,6 @@ import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Component
-@Lazy
 public class CanalClient implements ApplicationRunner {
 
     @Resource
@@ -37,9 +34,14 @@ public class CanalClient implements ApplicationRunner {
     @Async("canal")
     public void run(ApplicationArguments args) throws Exception {
         CanalConnector canalConnector = canalConfig.createCanalConnector();
-        canalConnector.connect();
-        canalConnector.rollback();
-        canalConnector.subscribe(canalConfig.getSchema()+"\\."+canalConfig.getUserTable());
+        try {
+            canalConnector.connect();
+            canalConnector.rollback();
+            canalConnector.subscribe(canalConfig.getSchema()+"\\."+canalConfig.getUserTable());
+        } catch (Exception e) {
+            log.warn("########canal连接失败#######{}",ExceptionUtil.getMessage(e));
+            return;
+        }
         while (true){
             Message message = canalConnector.getWithoutAck(BATCH_SIZE);
             long batchId = message.getId();

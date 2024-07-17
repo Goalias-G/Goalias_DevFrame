@@ -1,9 +1,5 @@
 package com.dev.model.utils;
 
-/**
- * @author 许明辉
- * @date 2021/11/3 15:11
- */
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;

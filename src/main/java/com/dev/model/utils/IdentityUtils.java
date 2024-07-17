@@ -4,8 +4,6 @@ import java.util.stream.IntStream;
 
 /**
  * 身份证校验
- * @author zhaojianqiang
- * @time   下午1:36:17
  */
 public class IdentityUtils {
 	/**   身份证校验码 */

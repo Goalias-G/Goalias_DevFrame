@@ -5,9 +5,10 @@ import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 
 @Configuration
-@ConfigurationProperties(prefix = "my.minio")
+@ConfigurationProperties(prefix = "goalias.minio")
 @Data
 public class MinioConfig {
 

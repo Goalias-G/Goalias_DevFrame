@@ -10,13 +10,45 @@
     </parent>
     <groupId>com.dev</groupId>
     <artifactId>model</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>DevModel</name>
-    <description>DevModel</description>
+    <version>2.0.0</version>
+    <name>Goalias_DevFrame</name>
+    <description>一个用于快速构建和开发Spring Boot应用的高效脚手架</description>
     <properties>
         <java.version>17</java.version>
+        <goalias.version>1.0.3</goalias.version>
+        <sentinel.version>1.8.6</sentinel.version>
+        <bytebuddy.version>1.12.23</bytebuddy.version>
+        <mybatisPlus.version>3.5.4</mybatisPlus.version>
+        <jjwt.version>0.9.1</jjwt.version>
+        <jaxbApi.version>2.3.1</jaxbApi.version>
+        <swagger2.version>3.0.0</swagger2.version>
+        <swaggerUi.version>2.9.2</swaggerUi.version>
+        <aliyunSdkOss.version>3.10.2</aliyunSdkOss.version>
+        <hutool.version>5.8.18</hutool.version>
+        <dysmsapi20170525.version>2.0.24</dysmsapi20170525.version>
+        <core.version>3.3.0</core.version>
+        <druid.version>1.2.9</druid.version>
+        <minio.version>8.5.11</minio.version>
+        <canal.version>1.1.5</canal.version>
     </properties>
     <dependencies>
+        <dependency>
+            <groupId>com.tool</groupId>
+            <artifactId>goalias</artifactId>
+            <version>${goalias.version}</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/lib/goalias-1.0.3.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.csp</groupId>
+            <artifactId>sentinel-parameter-flow-control</artifactId>
+            <version>${sentinel.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>net.bytebuddy</groupId>
+            <artifactId>byte-buddy</artifactId>
+            <version>${bytebuddy.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
@@ -24,7 +56,6 @@
         <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
-            <version>1.9.20.1</version>
         </dependency>
         <dependency>
             <groupId>com.mysql</groupId>
@@ -44,37 +75,38 @@
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
-            <version>3.5.4</version>
+            <version>${mybatisPlus.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt</artifactId>
-            <version>0.9.1</version>
+            <version>${jjwt.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.xml.bind</groupId>
             <artifactId>jaxb-api</artifactId>
-            <version>2.3.1</version>
+            <version>${jaxbApi.version}</version>
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
+            <version>${swagger2.version}</version>
+
         </dependency>
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
-            <version>2.9.2</version>
+            <version>${swaggerUi.version}</version>
         </dependency>
         <dependency>
             <groupId>com.aliyun.oss</groupId>
             <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.10.2</version>
+            <version>${aliyunSdkOss.version}</version>
         </dependency>
         <dependency>
             <groupId>cn.hutool</groupId>
             <artifactId>hutool-all</artifactId>
-            <version>5.8.18</version>
+            <version>${hutool.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -84,33 +116,27 @@
         <dependency>
             <groupId>com.aliyun</groupId>
             <artifactId>dysmsapi20170525</artifactId>
-            <version>2.0.24</version>
+            <version>${dysmsapi20170525.version}</version>
         </dependency>
 <!--        qr-->
         <dependency>
             <groupId>com.google.zxing</groupId>
             <artifactId>core</artifactId>
-            <version>3.3.0</version>
+            <version>${core.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba</groupId>
             <artifactId>druid-spring-boot-starter</artifactId>
-            <version>1.2.9</version>
+            <version>${druid.version}</version>
         </dependency>
         <dependency>
             <groupId>io.minio</groupId>
             <artifactId>minio</artifactId>
-            <version>8.5.11</version>
+            <version>${minio.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-redis</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>io.lettuce</groupId>
-                    <artifactId>lettuce-core</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -123,17 +149,17 @@
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.client</artifactId>
-            <version>1.1.5</version>
+            <version>${canal.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.protocol</artifactId>
-            <version>1.1.5</version>
+            <version>${canal.version}</version>
         </dependency>
         <dependency>
             <groupId>com.alibaba.otter</groupId>
             <artifactId>canal.common</artifactId>
-            <version>1.1.5</version>
+            <version>${canal.version}</version>
         </dependency>
     </dependencies>
 
@@ -143,6 +169,7 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
+                    <includeSystemScope>true</includeSystemScope>
                     <excludes>
                         <exclude>
                             <groupId>org.projectlombok</groupId>

@@ -6,7 +6,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 @Component
-@ConfigurationProperties(prefix = "my.alioss")
+@ConfigurationProperties(prefix = "goalias.alioss")
 @Data
 public class AliOssProperties {
 

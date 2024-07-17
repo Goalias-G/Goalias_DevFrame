@@ -11,7 +11,7 @@ import java.net.InetSocketAddress;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "my.canal")
+@ConfigurationProperties(prefix = "goalias.canal")
 public class CanalConfig {
 
     private String hostname;
