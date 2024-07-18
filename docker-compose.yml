@@ -1,0 +1,59 @@
+version: '1.0'
+
+services:
+  mysql:
+    image: mysql:8.0.26
+    container_name: mysql-goalias
+    environment:
+      MYSQL_USER: root
+      MYSQL_ROOT_PASSWORD: 1234567890
+      MYSQL_DATABASE: goalias
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+  redis:
+    image: redis:latest
+    container_name: redis-goalias
+    ports:
+      - "6379:6379"
+
+  canal:
+    image: canal/canal-server
+    container_name: canal-goalias
+    environment:
+      canal.instance.master.address: mysql-goalias:3306
+      canal.instance.dbUsername: root
+      canal.instance.dbPassword: 1234567890
+    ports:
+      - "11111:11111"
+    depends_on:
+      - mysql
+
+  minio:
+    image: minio/minio
+    container_name: minio-goalias
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: 1234567890
+    ports:
+      - "9000:9000"
+    command: server /data
+    volumes:
+      - minio-data:/data
+
+  goalias-app:
+    build: .
+    container_name:
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+      - redis
+      - canal
+      - minio
+
+volumes:
+  mysql-data:
+  minio-data:
