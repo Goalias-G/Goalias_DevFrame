@@ -13,6 +13,7 @@
     <version>2.0.0</version>
     <name>Goalias_DevFrame</name>
     <description>一个用于快速构建和开发Spring Boot应用的高效脚手架</description>
+    <packaging>jar</packaging>
 
     <properties>
         <java.version>17</java.version>
@@ -159,6 +160,7 @@
     </dependencies>
 
     <build>
+        <finalName>goaliasApp</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

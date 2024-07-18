@@ -1,5 +1,6 @@
 package com.dev.model.canal;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.dev.model.pojo.entity.User;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -30,7 +31,7 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     public void insertSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
             User user = parseRowData(rowData);
-            stringRedisTemplate.opsForValue().set("user:"+user.getId(),user.toString());
+            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
     }
 
@@ -38,7 +39,7 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     public void updateSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
             User user = parseRowData(rowData);
-            stringRedisTemplate.opsForValue().set("user:"+user.getId(),user.toString());
+            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
     }
 

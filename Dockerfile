@@ -2,20 +2,16 @@
 FROM openjdk:17-alpine
 
 ENV TZ=Asia/Shanghai
-
-# 安装一些软件包
-RUN apt-get update && apt-get install -y \
-    curl \
-    vim
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 设置工作目录
 WORKDIR /app
 
 # 复制应用程序代码到容器
-COPY . /app
+COPY target/goaliasApp.jar app.jar
 
 # 暴露端口
 EXPOSE 9999
 
 # 定义启动命令
-CMD ["./myapp"]
+ENTRYPOINT ["java", "-jar", "app.jar"]
