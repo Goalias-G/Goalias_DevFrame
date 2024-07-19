@@ -39,7 +39,8 @@ public class CanalClient implements ApplicationRunner {
             canalConnector.rollback();
             canalConnector.subscribe(canalConfig.getSchema()+"\\."+canalConfig.getUserTable());
         } catch (Exception e) {
-            log.warn("########canal连接失败#######{}",ExceptionUtil.getMessage(e));
+            log.warn(ExceptionUtil.getMessage(e));
+            log.warn("########canal连接失败#######");
             return;
         }
         while (true){
