@@ -1,13 +1,11 @@
 package com.dev.model.aop;
 
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.json.JSONUtil;
 import com.dev.model.pojo.vo.Result;
 import com.dev.model.utils.RequestUtil;
 import com.google.common.base.Stopwatch;
 
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -18,21 +16,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.MDC;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.sql.Timestamp;
-import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -41,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 @Aspect
 @Configuration
-@ConditionalOnProperty(prefix = "goalias", name = "log", havingValue = "on", matchIfMissing = true)
+@ConditionalOnProperty(prefix = "goalias.log", name = "isOpen", havingValue = "true")
 public class RequestLogAspect {
 
     private static final Logger Goalias_LOGGER = LoggerFactory.getLogger("Goalias");

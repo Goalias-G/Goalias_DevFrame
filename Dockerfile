@@ -8,7 +8,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 WORKDIR /app
 
 # 复制应用程序代码到容器
-COPY target/goaliasApp.jar app.jar
+COPY goaliasApp.jar app.jar
 
 # 暴露端口
 EXPOSE 9999

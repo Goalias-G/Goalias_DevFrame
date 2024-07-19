@@ -1,4 +1,7 @@
+![logo.png](doc/logo.png)
+
 ## author: Goalias-G
+
 
 ### 项目地址：https://github.com/Goalias-G/Goalias_DevFrame
 
@@ -39,10 +42,15 @@ next -> 快速开发你领先在起跑线的项目!
             delete: 
             schema: 
             user-table: 
-        log: on
+        log:
+            isOpen: true
 canal主要配置示例： canal.properties
 
 docker 部署示例： Dockerfile 、 docker-compose.yml
+
+成功启动示例：
+![img.png](doc/img.png)
+
 
 ### 🎉🎉🎉 <span style="color: orange;">代码写得好，Bug跑不了；脚手架用得好，效率少不了！</span>🚀✨😄👍💻🚀
 

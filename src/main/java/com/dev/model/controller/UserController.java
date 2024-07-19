@@ -89,7 +89,6 @@ public class UserController {
         userService.change(userDto);
         return Result.success();
     }
-//    @ApiOperation("删除用户")
     @PostMapping("deleteUser/{id}")
     public Result deleteOne(@PathVariable String id){
         userService.removeById(Integer.parseInt(id));
