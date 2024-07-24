@@ -1,5 +1,7 @@
 version: '3.8'
 
+name: goalias-docker
+
 services:
   mysql:
     image: mysql:8.0.26
