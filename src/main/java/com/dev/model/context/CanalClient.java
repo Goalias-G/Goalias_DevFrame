@@ -51,7 +51,7 @@ public class CanalClient implements ApplicationRunner {
                     log.info("canal未监听到数据变更");
                     TimeUnit.SECONDS.sleep(2);
                 }catch (InterruptedException e){
-                    ExceptionUtil.stacktraceToString(e);
+                    log.warn("canal监听异常:{}", ExceptionUtil.stacktraceToString(e));
                 }
             }else {
                 handleMessage(message);
