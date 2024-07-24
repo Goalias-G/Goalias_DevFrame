@@ -48,6 +48,6 @@ public class CanalConfig {
 
     @Bean
     public CanalConnector createCanalConnector() {
-        return CanalConnectors.newSingleConnector(new InetSocketAddress(port), destination, username, password);
+        return CanalConnectors.newSingleConnector(new InetSocketAddress(hostname,port), destination, username, password);
     }
 }

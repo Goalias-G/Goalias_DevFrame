@@ -5,7 +5,6 @@ services:
     image: mysql:8.0.26
     container_name: mysql-goalias
     environment:
-      MYSQL_USER: root
       MYSQL_ROOT_PASSWORD: 1234567890
       MYSQL_DATABASE: goalias
     ports:
@@ -55,7 +54,7 @@ services:
     build: .
     container_name: goalias-app
     ports:
-      - "8080:8080"
+      - "9999:9999"
     depends_on:
       - mysql
       - redis
