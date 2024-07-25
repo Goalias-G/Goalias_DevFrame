@@ -22,38 +22,47 @@ Goalias_DevFrame 是一个用于快速构建和开发Spring Boot应用的多位�
 
 next -> 快速开发你领先在起跑线的项目!
 
-### 示例关键配置
-
-    goalias:
-        jwt:
-            userSecretKey: 
-            userTtl: 
-            userTokenName: 
-    #aliyunOSS配置
-        alioss:
-            endpoint: 
-            accessKeyId: 
-            accessKeySecret: 
-            bucketName: 
-    #aliyun短信服务配置
-        aliyun:
-            accessKeyId: 
-            accessKeySecret: 
-            endpoint: 
-        minio:
-            endpoint: 
-            accessKey: 
-            secretKey: 
-        canal:
-            port: 
-            destination: 
-            update: 
-            insert: 
-            delete: 
-            schema: 
-            user-table: 
-        log:
-            isOpen: true
+### 目录结构
+```
+Goalias_DevModel
+├─ .gitignore
+├─ Dockerfile
+├─ README.md
+├─ canal.properties
+├─ doc
+├─ docker-compose.yml
+├─ lombok.config
+├─ pom.xml
+├─ src
+│  ├─ main
+│  │  ├─ java
+│  │  │  └─ com
+│  │  │     └─ dev
+│  │  │        └─ model
+│  │  │           ├─ DevModelApplication.java
+│  │  │           ├─ Event          spring事件监听器
+│  │  │           ├─ aop            
+│  │  │           ├─ canal          canal处理Handler
+│  │  │           ├─ config         
+│  │  │           ├─ context            应用上下文
+│  │  │           ├─ controller
+│  │  │           ├─ interceptor
+│  │  │           ├─ mapper
+│  │  │           ├─ pojo
+│  │  │           │  ├─ dto
+│  │  │           │  ├─ entity
+│  │  │           │  └─ vo
+│  │  │           ├─ properties
+│  │  │           ├─ schedule           自定义定时任务
+│  │  │           ├─ service
+│  │  │           │  └─ impl
+│  │  │           └─ utils          工具类
+│  │  └─ resources
+│  │     ├─ lib
+│  │     │  └─ goalias-1.0.3.jar （goaliasLimiter）
+│  │     └─ mapper
+│  └─ test
+```
 canal主要配置示例： canal.properties
 
 docker 部署示例： Dockerfile 、 docker-compose.yml

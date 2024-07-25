@@ -48,7 +48,7 @@ public class CanalClient implements ApplicationRunner {
             long batchId = message.getId();
             if (batchId == -1 || message.getEntries().isEmpty()){
                 try {
-                    log.info("canal未监听到数据变更");
+                    log.info("canal监听{}:{}数据ing", canalConfig.getSchema(),canalConfig.getUserTable());
                     TimeUnit.SECONDS.sleep(2);
                 }catch (InterruptedException e){
                     log.warn("canal监听异常:{}", ExceptionUtil.stacktraceToString(e));

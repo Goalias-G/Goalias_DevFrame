@@ -1,0 +1,37 @@
+spring:
+  config:
+    import: classpath:/application-prod.yml,classpath:/datasource-prod.yml
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+goalias:
+  jwt:
+    userSecretKey: goalias
+    userTtl: 180000
+    userTokenName: token
+  alioss:
+    endpoint:
+    accessKeyId:
+    accessKeySecret:
+    bucketName:
+  aliyun:
+    accessKeyId:
+    accessKeySecret:
+    endpoint:
+  minio:
+    endpoint: http://minio-goalias:9000
+    accessKey:
+    secretKey:
+  canal:
+    hostname: canal-goalias
+    port: 11111
+    destination: example
+    update: true
+    insert: true
+    delete: true
+    schema: goalias
+    user-table: user
+  log:
+    isOpen: true
+
+

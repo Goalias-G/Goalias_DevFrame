@@ -1,0 +1,16 @@
+server:
+  port: 9999
+logging:
+  level:
+    com.dev.model: debug
+spring:
+  profiles:
+    active: dev
+  main:
+    banner-mode: console
+  servlet:
+    # 文件上传
+    multipart:
+      enabled: true
+      max-file-size: 50MB
+      max-request-size: 100MB

@@ -7,6 +7,7 @@ services:
     image: mysql:8.0.26
     container_name: mysql-goalias
     environment:
+      TZ: Asia/Shanghai
       MYSQL_ROOT_PASSWORD: 1234567890
       MYSQL_DATABASE: goalias
     ports:
@@ -28,6 +29,7 @@ services:
     image: canal/canal-server
     container_name: canal-goalias
     environment:
+      TZ: Asia/Shanghai
       canal.instance.master.address: mysql-goalias:3306
       canal.instance.dbUsername: root
       canal.instance.dbPassword: 1234567890
@@ -42,6 +44,7 @@ services:
     image: minio/minio
     container_name: minio-goalias
     environment:
+      TZ: Asia/Shanghai
       MINIO_ROOT_USER: minio
       MINIO_ROOT_PASSWORD: 1234567890
     ports:
