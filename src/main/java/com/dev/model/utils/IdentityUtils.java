@@ -1,5 +1,7 @@
 package com.dev.model.utils;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.IntStream;
 
 /**
@@ -47,4 +49,23 @@ public class IdentityUtils {
         }
     }
 
+    public static boolean checkPassword(String password) {
+        String rule = "(?=.*([a-zA-Z].*))(?=.*[0-9].*)[a-zA-Z0-9-*/+.~!@#$%^&*()]{6,20}$";
+        //正则表达式的模式 编译正则表达式
+        Pattern p = Pattern.compile(rule);
+        //正则表达式的匹配器
+        Matcher m = p.matcher(password);
+        //进行正则匹配
+        return m.matches();
+    }
+
+    public static boolean checkEmail(String email) {
+        String rule = "^\\w+((-\\w+)|(\\.\\w+))*\\@[A-Za-z0-9]+((\\.|-)[A-Za-z0-9]+)*\\.[A-Za-z0-9]+$";
+        //正则表达式的模式 编译正则表达式
+        Pattern p = Pattern.compile(rule);
+        //正则表达式的匹配器
+        Matcher m = p.matcher(email);
+        //进行正则匹配
+        return m.matches();
+    }
 }

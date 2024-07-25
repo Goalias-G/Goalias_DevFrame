@@ -1,11 +1,19 @@
 server:
   port: 9999
+  http2:
+    enabled: true
+  tomcat:
+    threads:
+      max: 400
+      min-spare: 100
+    max-connections: 10000
+    max-http-form-post-size: 4MB
 logging:
   level:
     com.dev.model: debug
 spring:
   profiles:
-    active: dev
+    active: dev    #选择配置文件环境
   main:
     banner-mode: console
   servlet:
