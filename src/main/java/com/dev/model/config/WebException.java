@@ -14,6 +14,6 @@ public class WebException {
     @ExceptionHandler(RuntimeException.class)
     public Result handleRuntimeException(RuntimeException e){
         log.error(e.toString(), e);
-        return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(),"报错啦");
+        return Result.error(HttpStatus.INTERNAL_SERVER_ERROR.value(), e.getMessage());
     }
 }

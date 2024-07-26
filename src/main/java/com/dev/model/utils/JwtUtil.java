@@ -30,10 +30,9 @@ public class JwtUtil {
     }
 
     public static Claims parseJWT(String secretKey, String token) {
-        Claims claims = Jwts.parser()
+        return Jwts.parser()
                 .setSigningKey(secretKey.getBytes(StandardCharsets.UTF_8))
                 .parseClaimsJws(token).getBody();
-        return claims;
     }
 
 

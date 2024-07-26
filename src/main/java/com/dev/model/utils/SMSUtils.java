@@ -45,9 +45,8 @@ public class SMSUtils {
      * @param length 长度
      * @return 指定长度的随机短信验证码
      */
-    public static final String randomSMSCode(int length) {
-        boolean numberFlag = true;
-        String retStr = "";
+    public static final String randomSMSCode(int length, boolean numberFlag) {
+        String retStr;
         String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
         int len = strTable.length();
         boolean bDone = true;
@@ -80,7 +79,7 @@ public class SMSUtils {
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(mobile)
                 .setSignName("dev_frame")
-                .setTemplateCode("SMS_465407442")
+                .setTemplateCode("SMS_465407442")//模板
                 .setTemplateParam("{'code':"+code+"}");
         Client client = null;
         try {

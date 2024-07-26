@@ -45,7 +45,7 @@ public class UserController {
     }
 
     @PostMapping("login")
-    public Result<LoginVO> login(@RequestBody PhoneLoginDto phoneLoginDto){
+    public Result login(@RequestBody PhoneLoginDto phoneLoginDto){
         LoginVO loginVO = userService.login(phoneLoginDto);
         if (loginVO == null) {
             return Result.error("账号或密码错误");
