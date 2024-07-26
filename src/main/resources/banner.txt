@@ -4,6 +4,4 @@ ${AnsiColor.BRIGHT_CYAN}
  | |  _| | | |/ _ \ | |    | |  / _ \ \___ \
  | |_| | |_| / ___ \| |___ | | / ___ \ ___) |
   \____|\___/_/   \_\_____|___/_/   \_\____/
-
-${AnsiColor.BLUE}
-:::       Spring-Boot ${spring-boot.version}
+${AnsiColor.BLUE}                            :::  Spring-Boot ${spring-boot.version}

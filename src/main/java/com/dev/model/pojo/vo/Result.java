@@ -1,5 +1,8 @@
 package com.dev.model.pojo.vo;
 
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
+import com.dev.model.properties.ExceptionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,4 +26,12 @@ public class Result<T> {
     public static Result error(String msg){
         return new Result(500,msg,null);
     }
+    public static Result error(ExceptionEnum exception){
+        return new Result(exception.getResultCode(), exception.getResultMsg(),null);
+    }
+
+    public String toString(){
+        return new JSONObject(this).toString();
+    }
+
 }

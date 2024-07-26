@@ -2,6 +2,7 @@ package com.dev.model.aop;
 
 
 import cn.hutool.json.JSONUtil;
+import com.dev.model.context.BizException;
 import com.dev.model.pojo.vo.Result;
 import com.dev.model.utils.RequestUtil;
 import com.google.common.base.Stopwatch;
@@ -94,9 +95,9 @@ public class RequestLogAspect {
             errorThrow = e;
             isSuccess = false;
 //            // 如果是自定义的业务异常, 继续抛出让ExceptionControllerHandler去捕获, 这样可以回显前端详细的错误信息, 而不是简单的"操作失败"
-//            if (e instanceof xxxException || e instanceof xxxException || e instanceof xxxException || e instanceof xxxException) {
-//                throw e;
-//            }
+            if (e instanceof BizException || e instanceof NullPointerException) {
+                throw e;
+            }
             String logErrorStr = "\n" +
                 "#####################系统全局异常监控Exception#####################" + "\n" +
                 "Timestamp    :" + timestamp + "\n" +

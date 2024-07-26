@@ -23,6 +23,8 @@ import com.dev.model.service.IUserService;
 import com.dev.model.utils.JwtUtil;
 import com.dev.model.utils.SMSUtils;
 import org.jetbrains.annotations.NotNull;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
@@ -49,9 +51,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
     @Resource
     private JwtProperties jwtProperties;
-
     @Resource
     private ApplicationEventPublisher applicationEventPublisher;
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Override
     public LoginVO login(PhoneLoginDto phoneLoginDto) {
