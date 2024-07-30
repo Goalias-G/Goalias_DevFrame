@@ -3,13 +3,24 @@ package com.dev.model.controller;
 import com.dev.model.context.BizException;
 import com.dev.model.pojo.vo.Result;
 import com.dev.model.properties.ExceptionEnum;
+import com.dev.model.service.RedisService;
+import com.dev.model.utils.EmailUtil;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
+
 @RestController
 @RequestMapping("/test")
 public class TestController {
+
+    @Resource
+    private EmailUtil emailUtil;
+    @Resource
+    private RedisService redisService;
+
 
     @GetMapping("test")
     public Result<String> test(){
@@ -25,4 +36,15 @@ public class TestController {
     }
 
 
+    @GetMapping("email")
+    public Result<String> email(){
+        emailUtil.sendSimpleMail("gao0831mail@163.com", "test", "测试");
+        return Result.success("发送成功");
+    }
+
+    @GetMapping("redis")
+    public Result<String> redis(){
+        redisService.set("aa", "bb");
+        return Result.success("发送成功");
+    }
 }

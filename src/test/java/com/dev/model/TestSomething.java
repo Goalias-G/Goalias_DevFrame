@@ -5,10 +5,12 @@ import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
 import com.alibaba.otter.canal.protocol.Message;
 import com.dev.model.pojo.dto.UserDto;
+import com.dev.model.utils.EmailUtil;
 import io.minio.MinioClient;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.redis.core.StringRedisTemplate;
 
 import javax.annotation.Resource;
 import java.net.InetSocketAddress;
@@ -18,6 +20,9 @@ import java.util.concurrent.TimeUnit;
 
 @SpringBootTest
 public class TestSomething {
+
+    @Resource
+    private EmailUtil emailUtil;
     @Resource
     private MinioClient minioClient;
     @Resource
@@ -106,6 +111,6 @@ public class TestSomething {
 
     @Test
     public void test2() {
-
+        emailUtil.sendHtmlMail("********@163.com", "测试邮件", emailUtil.findPasswordTemplate("aaa", "123456", "http://127.0.0.1:9999/login"));
     }
 }

@@ -1,6 +1,16 @@
 spring:
   config:
     import: classpath:/application-prod.yml,classpath:/datasource-prod.yml
+  mail:
+    host: smtp.qq.com
+    port: 465
+    username:
+    password:
+    properties:
+      mail:
+        smtp:
+          socketFactory:
+            class: javax.net.ssl.SSLSocketFactory
 mybatis-plus:
   configuration:
     map-underscore-to-camel-case: true
