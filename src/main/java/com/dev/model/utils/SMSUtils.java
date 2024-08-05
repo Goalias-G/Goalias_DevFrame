@@ -78,19 +78,20 @@ public class SMSUtils {
     public static final boolean sendCode(String mobile, String code) {
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(mobile)
-                .setSignName("dev_frame")
+                .setSignName("dev_frame")//注册签名
                 .setTemplateCode("SMS_465407442")//模板
-                .setTemplateParam("{'code':"+code+"}");
+                .setTemplateParam("{'code':" + code + "}");
         Client client = null;
         try {
             client = createClient();
         } catch (Exception e) {
             log.warn("创建短信客户端失败{}", ExceptionUtil.stacktraceToString(e));
         }
+        SendSmsResponse sendSmsResponse = null;
         try {
-            SendSmsResponse sendSmsResponse = client.sendSmsWithOptions(sendSmsRequest, new RuntimeOptions());
+            sendSmsResponse = client.sendSmsWithOptions(sendSmsRequest, new RuntimeOptions());
         } catch (Exception e) {
-            log.warn("发送短信失败{}", ExceptionUtil.stacktraceToString(e));
+            log.warn("发送短信失败{}", sendSmsResponse.getBody().getMessage());
         }
 
         return true;
