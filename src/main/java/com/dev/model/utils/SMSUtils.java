@@ -25,8 +25,7 @@ public class SMSUtils {
     @Value("${goalias.aliyun.accessKeySecret}")
     private static String accessKeySecret;
 
-    @Value("${goalias.aliyun.endpoint}")
-    private static String endpoint;
+    private static String endpoint="dysmsapi.aliyuncs.com";
 
 
     /**
@@ -34,7 +33,7 @@ public class SMSUtils {
      * @param mobile 手机号码
      * @return 是否有效
      */
-    public static final boolean isMobileNo(String mobile){
+    public static final boolean isMobileNum(String mobile){
         Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
         Matcher m = p.matcher(mobile);
         return m.matches();

@@ -1,11 +1,6 @@
 package com.dev.model.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
-import com.aliyun.dysmsapi20170525.Client;
-import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
-import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
-import com.aliyun.tea.TeaException;
-import com.aliyun.teautil.models.RuntimeOptions;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -25,8 +20,6 @@ import com.dev.model.utils.SMSUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.CachePut;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -34,7 +27,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.Resource;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * <p>
@@ -99,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void sendCode(String phone) {
         String message = null;
         String code = RandomUtil.randomNumbers(6);
-        if (!SMSUtils.isMobileNo(phone)) {
+        if (!SMSUtils.isMobileNum(phone)) {
             throw new RuntimeException("手机号不合法");
         }
         boolean isSuccess = SMSUtils.sendCode(phone, code);

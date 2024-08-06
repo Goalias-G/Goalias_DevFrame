@@ -19,11 +19,6 @@ goalias:
     userSecretKey: goalias
     userTtl: 180000
     userTokenName: token
-  alioss:
-    endpoint:
-    accessKeyId:
-    accessKeySecret:
-    bucketName:
   aliyun:
     accessKeyId:
     accessKeySecret:
