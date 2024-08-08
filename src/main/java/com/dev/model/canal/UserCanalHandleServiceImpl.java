@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
+
 @Service
 public class UserCanalHandleServiceImpl implements CanalHandleService {
 
@@ -30,15 +32,19 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     @Override
     public void insertSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
-            User user = parseRowData(rowData);
+            User user = getCanalEntity(new User(), rowData.getAfterColumnsList());
             stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
+//        rowDataList.forEach(rowData -> {
+//            User user = parseRowData(rowData);
+//            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
+//        });
     }
 
     @Override
     public void updateSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
-            User user = parseRowData(rowData);
+            User user = getCanalEntity(new User(), rowData.getAfterColumnsList());
             stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
     }
@@ -48,7 +54,7 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
 
     }
 
-    private User parseRowData(CanalEntry.RowData rowData) {
+/*    private User parseRowData(CanalEntry.RowData rowData) {
         User user = new User();
         rowData.getAfterColumnsList().forEach(column -> {
             switch (column.getName()) {
@@ -74,5 +80,5 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
             }
         });
         return user;
-    }
+    }*/
 }
