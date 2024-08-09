@@ -1,4 +1,4 @@
-package com.dev.model.properties;
+package com.dev.model.context.properties;
 
 import lombok.AllArgsConstructor;
 

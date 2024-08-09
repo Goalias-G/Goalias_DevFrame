@@ -1,8 +1,7 @@
-package com.dev.model.pojo.vo;
+package com.dev.model.pojo;
 
 import cn.hutool.json.JSONObject;
-import cn.hutool.json.JSONUtil;
-import com.dev.model.properties.ExceptionEnum;
+import com.dev.model.context.properties.ExceptionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

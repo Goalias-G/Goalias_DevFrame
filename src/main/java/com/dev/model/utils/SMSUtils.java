@@ -1,6 +1,7 @@
 package com.dev.model.utils;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
+import cn.hutool.core.util.DesensitizedUtil;
 import com.aliyun.dysmsapi20170525.Client;
 import com.aliyun.dysmsapi20170525.models.SendSmsRequest;
 import com.aliyun.dysmsapi20170525.models.SendSmsResponse;
@@ -8,6 +9,7 @@ import com.aliyun.teautil.models.RuntimeOptions;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +35,7 @@ public class SMSUtils {
      * @param mobile 手机号码
      * @return 是否有效
      */
-    public static final boolean isMobileNum(String mobile){
+    public static boolean isMobileNum(String mobile){
         Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
@@ -44,7 +46,7 @@ public class SMSUtils {
      * @param length 长度
      * @return 指定长度的随机短信验证码
      */
-    public static final String randomSMSCode(int length, boolean numberFlag) {
+    public static String randomSMSCode(int length, boolean numberFlag) {
         String retStr;
         String strTable = numberFlag ? "1234567890" : "1234567890abcdefghijkmnpqrstuvwxyz";
         int len = strTable.length();
@@ -74,7 +76,7 @@ public class SMSUtils {
      * @param code 验证码
      * @return 是否发送成功
      */
-    public static final boolean sendCode(String mobile, String code) {
+    public static boolean sendCode(String mobile, String code) {
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(mobile)
                 .setSignName("dev_frame")//注册签名

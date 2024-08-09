@@ -1,9 +1,9 @@
 package com.dev.model.config;
 
 
-import com.dev.model.context.BizException;
-import com.dev.model.pojo.vo.Result;
-import com.dev.model.properties.ExceptionEnum;
+import com.dev.model.context.exception.BizException;
+import com.dev.model.pojo.Result;
+import com.dev.model.context.properties.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

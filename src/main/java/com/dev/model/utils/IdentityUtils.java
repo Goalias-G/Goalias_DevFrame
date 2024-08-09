@@ -1,5 +1,7 @@
 package com.dev.model.utils;
 
+import cn.hutool.core.util.DesensitizedUtil;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.IntStream;
@@ -68,4 +70,14 @@ public class IdentityUtils {
         //进行正则匹配
         return m.matches();
     }
+    public String desensitizeEmail(String email) {
+        return DesensitizedUtil.email(email);
+    }
+    public String desensitizePhone(String mobilePhone) {
+        return DesensitizedUtil.mobilePhone(mobilePhone);
+    }
+    public String desensitizePassword(String password) {
+        return DesensitizedUtil.password(password);
+    }
+
 }

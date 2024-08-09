@@ -1,14 +1,14 @@
 package com.dev.model.interceptor;
 
 import com.dev.model.context.UserContext;
-import com.dev.model.properties.JwtProperties;
+import com.dev.model.context.constant.HttpStatus;
+import com.dev.model.context.properties.JwtProperties;
 import com.dev.model.utils.JwtUtil;
 
 import io.jsonwebtoken.Claims;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
@@ -32,7 +32,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         response.setHeader("Access-Control-Allow-Headers", "*");// 表明服务器支持所有头信息字段 */
         // 如果是OPTIONS则结束请求
         if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
-            response.setStatus(HttpStatus.NO_CONTENT.value());
+            response.setStatus(HttpStatus.NO_CONTENT);
             return false;
         }
         if (!(handler instanceof HandlerMethod)) {//是否为动态方法
@@ -45,15 +45,19 @@ public class LoginInterceptor implements HandlerInterceptor {
             Claims claims = JwtUtil.parseJWT(jwtProperties.getUserSecretKey(), token);
             userId = Long.valueOf(claims.get("userId").toString());
         } catch (Exception e) {
-            response.setStatus(401);
+            response.setStatus(HttpStatus.UNAUTHORIZED);
             return false;
         }
         if (StringUtils.hasText(userId.toString())) {
-            response.setStatus(401);
+            response.setStatus(HttpStatus.UNAUTHORIZED);
             return false;
         }
         UserContext.setCurrentId(userId);
         return true;
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+        UserContext.removeCurrentId();
+    }
 }

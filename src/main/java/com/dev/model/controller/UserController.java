@@ -7,7 +7,7 @@ import com.dev.model.pojo.dto.PhoneLoginDto;
 import com.dev.model.pojo.dto.UserDto;
 import com.dev.model.pojo.entity.User;
 import com.dev.model.pojo.vo.LoginVO;
-import com.dev.model.pojo.vo.Result;
+import com.dev.model.pojo.Result;
 import com.dev.model.pojo.vo.UserVo;
 import com.dev.model.service.IUserService;
 

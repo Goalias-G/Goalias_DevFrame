@@ -1,11 +1,10 @@
 package com.dev.model.controller;
 
-import com.dev.model.context.BizException;
-import com.dev.model.pojo.vo.Result;
-import com.dev.model.properties.ExceptionEnum;
+import com.dev.model.context.exception.BizException;
+import com.dev.model.pojo.Result;
+import com.dev.model.context.properties.ExceptionEnum;
 import com.dev.model.service.RedisService;
 import com.dev.model.utils.EmailUtil;
-import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +37,7 @@ public class TestController {
 
     @GetMapping("email")
     public Result<String> email(){
-        emailUtil.sendSimpleMail("gao0831mail@163.com", "test", "测试");
+        emailUtil.sendHtmlMail("986891392@qq.com", "love", emailUtil.findPasswordTemplate("lwx小弟", "5201314", "http://182.92.244.97/"));
         return Result.success("发送成功");
     }
 

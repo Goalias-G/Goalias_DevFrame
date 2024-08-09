@@ -4,13 +4,12 @@ import com.aliyun.oss.ClientException;
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
 import com.aliyun.oss.OSSException;
-import com.dev.model.context.BizException;
-import com.dev.model.properties.AliOssProperties;
+import com.dev.model.context.exception.BizException;
+import com.dev.model.context.properties.AliOssProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.io.IOException;
 import java.io.InputStream;

@@ -7,11 +7,8 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static net.sf.jsqlparser.util.validation.metadata.NamedObject.user;
 
 @Service
 public class UserCanalHandleServiceImpl implements CanalHandleService {
@@ -35,10 +32,6 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
             User user = getCanalEntity(new User(), rowData.getAfterColumnsList());
             stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
-//        rowDataList.forEach(rowData -> {
-//            User user = parseRowData(rowData);
-//            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
-//        });
     }
 
     @Override
@@ -53,32 +46,4 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     public void deleteSql(List<CanalEntry.RowData> rowDataList) {
 
     }
-
-/*    private User parseRowData(CanalEntry.RowData rowData) {
-        User user = new User();
-        rowData.getAfterColumnsList().forEach(column -> {
-            switch (column.getName()) {
-                case "id":
-                    user.setId(Integer.parseInt(column.getValue()));break;
-                case "sex":
-                    user.setSex(column.getValue());break;
-
-                case "username":
-                    user.setUsername(column.getValue());break;
-
-                case "password":
-                    user.setPassword(column.getValue());break;
-
-                case "phone_number":
-                    user.setPhoneNumber(column.getValue());break;
-
-                case "age":
-                    user.setAge(Integer.parseInt(column.getValue()));break;
-
-                case "register_time":
-                    user.setRegisterTime(LocalDateTime.parse(column.getValue(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));break;
-            }
-        });
-        return user;
-    }*/
 }

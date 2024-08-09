@@ -7,6 +7,7 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.alibaba.otter.canal.protocol.exception.CanalClientException;
 import com.dev.model.canal.UserCanalHandleServiceImpl;
 import com.dev.model.config.CanalConfig;
+import com.dev.model.context.exception.BizException;
 import com.google.protobuf.InvalidProtocolBufferException;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
@@ -36,7 +37,7 @@ public class CanalClient implements ApplicationRunner {
     private static final int BATCH_SIZE = 1000;
 
     @Override
-    @Async("canal")
+    @Async
     public void run(ApplicationArguments args) throws Exception {
         CanalConnector canalConnector = canalConfig.createCanalConnector();
         try {

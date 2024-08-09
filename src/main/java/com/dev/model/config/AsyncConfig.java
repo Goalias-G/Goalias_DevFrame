@@ -25,18 +25,14 @@ public class AsyncConfig implements AsyncConfigurer {
         return threadPoolExecutor;
     }
 
-    @Bean(name = "taskExecutor")//可以用async的value属性指定
-    public Executor taskExecutor1() {
-        return Executors.newFixedThreadPool(10);
-    }
 
-    @Bean(name = "canal")
+    @Bean(name = "email")
     public Executor canalExecutor() {
         ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
         executor.setCorePoolSize(5);
         executor.setMaxPoolSize(10);
         executor.setQueueCapacity(100);
-        executor.setThreadNamePrefix("canal-");
+        executor.setThreadNamePrefix("email-");
         executor.initialize();
         return executor;
     }

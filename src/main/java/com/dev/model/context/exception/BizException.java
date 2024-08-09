@@ -1,6 +1,6 @@
-package com.dev.model.context;
+package com.dev.model.context.exception;
 
-import com.dev.model.properties.ExceptionEnum;
+import com.dev.model.context.properties.ExceptionEnum;
 import lombok.Data;
 
 @Data

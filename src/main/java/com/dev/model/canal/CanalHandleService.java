@@ -1,7 +1,7 @@
 package com.dev.model.canal;
 
 import com.alibaba.otter.canal.protocol.CanalEntry;
-import com.dev.model.context.BizException;
+import com.dev.model.context.exception.BizException;
 import com.dev.model.utils.FieldsUtil;
 import org.springframework.util.StringUtils;
 
@@ -24,7 +24,7 @@ public interface CanalHandleService {
 
     void deleteSql(List<CanalEntry.RowData> rowDataList);
 
-    default <T> T getCanalEntity(T entity,List<CanalEntry.Column> columns){
+    default <T> T getCanalEntity(T entity, List<CanalEntry.Column> columns){
         Map<String, String> fieldMap = columns.stream().collect(Collectors.toMap(column -> FieldsUtil.underLineToCamel(column.getName()), CanalEntry.Column::getValue));
         Class<?> clazz = entity.getClass();
         List<Field> columnList = Arrays.stream(clazz.getDeclaredFields()).toList();

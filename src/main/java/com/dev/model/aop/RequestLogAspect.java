@@ -2,9 +2,9 @@ package com.dev.model.aop;
 
 
 import cn.hutool.json.JSONUtil;
-import com.dev.model.context.BizException;
-import com.dev.model.pojo.vo.Result;
-import com.dev.model.utils.RequestUtil;
+import com.dev.model.context.exception.BizException;
+import com.dev.model.pojo.Result;
+import com.dev.model.utils.IPUtil;
 import com.google.common.base.Stopwatch;
 
 import lombok.extern.slf4j.Slf4j;
@@ -39,7 +39,7 @@ public class RequestLogAspect {
 
     private static final Logger Goalias_LOGGER = LoggerFactory.getLogger("Goalias");
 
-    @Pointcut("execution(public com.dev.model.pojo.vo.Result com.dev.model.controller..*Controller.*(..))")
+    @Pointcut("execution(public com.dev.model.pojo.Result com.dev.model.controller..*Controller.*(..))")
     public void controllerLogAspect() {
     }
 
@@ -53,7 +53,7 @@ public class RequestLogAspect {
         String method = request.getMethod();
         String userAgent = request.getHeader("user-agent");
         String xRequestId = request.getHeader("x-request-id");
-        String ip = RequestUtil.getIp(request);
+        String ip = IPUtil.getIp(request);
         String methodName = point.getSignature().getName();
         String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
         String requestURI = request.getRequestURI();
@@ -94,7 +94,7 @@ public class RequestLogAspect {
         } catch (Throwable e) {
             errorThrow = e;
             isSuccess = false;
-//            // 如果是自定义的业务异常, 继续抛出让ExceptionControllerHandler去捕获, 这样可以回显前端详细的错误信息, 而不是简单的"操作失败"
+//            // 如果是自定义的业务异常, 继续抛出让ExceptionControllerHandler去捕获
             if (e instanceof BizException || e instanceof NullPointerException) {
                 throw e;
             }

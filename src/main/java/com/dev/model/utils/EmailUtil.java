@@ -1,10 +1,11 @@
 package com.dev.model.utils;
 
-import com.dev.model.context.BizException;
+import com.dev.model.context.exception.BizException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.core.io.FileSystemResource;
 
@@ -30,6 +31,7 @@ public class EmailUtil {
      * @param subject 邮件主题
      * @param text    邮件内容
      */
+    @Async("email")
     public void sendSimpleMail(String to, String subject, String text) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
@@ -48,6 +50,7 @@ public class EmailUtil {
      * @param filePath 附件路径
      * @throws MessagingException
      */
+    @Async("email")
     public void sendMailWithAttachment(String to, String subject, String text, String filePath){//文件存储方式？
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         try {
@@ -74,6 +77,7 @@ public class EmailUtil {
      * @param subject 邮件主题
      * @param html    HTML内容
      */
+    @Async("email")
     public void sendHtmlMail(String to, String subject, String html) {
         javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
 
@@ -108,4 +112,5 @@ public class EmailUtil {
                 "</b></span></div><div style='margin:0;'>这是一封系统自动发出的邮件，请不要直接回复。" +
                 "</div><div style='margin:0;'><br></div><div style='margin:0;'><br></div></body>";
     }
+
 }

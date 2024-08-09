@@ -13,7 +13,7 @@ import com.dev.model.pojo.dto.UserDto;
 import com.dev.model.pojo.entity.User;
 import com.dev.model.pojo.vo.LoginVO;
 import com.dev.model.pojo.vo.UserVo;
-import com.dev.model.properties.JwtProperties;
+import com.dev.model.context.properties.JwtProperties;
 import com.dev.model.service.IUserService;
 import com.dev.model.utils.JwtUtil;
 import com.dev.model.utils.SMSUtils;

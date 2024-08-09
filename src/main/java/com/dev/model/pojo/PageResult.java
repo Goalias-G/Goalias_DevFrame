@@ -1,4 +1,4 @@
-package com.dev.model.pojo.vo;
+package com.dev.model.pojo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +18,6 @@ public class PageResult<T> {
 
     private List<T> recordList;
 
-    private Integer count;
+    private Integer rows;
 
 }
