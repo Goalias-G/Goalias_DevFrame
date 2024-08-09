@@ -45,6 +45,9 @@ Goalias_DevModel
 │  │  │           ├─ canal          canal处理Handler
 │  │  │           ├─ config         
 │  │  │           ├─ context            应用上下文
+│  │  │           │  ├─ context
+│  │  │           │  ├─ exception
+│  │  │           │  └─ properties
 │  │  │           ├─ controller
 │  │  │           ├─ interceptor
 │  │  │           ├─ mapper
@@ -52,7 +55,6 @@ Goalias_DevModel
 │  │  │           │  ├─ dto
 │  │  │           │  ├─ entity
 │  │  │           │  └─ vo
-│  │  │           ├─ properties
 │  │  │           ├─ schedule           自定义定时任务
 │  │  │           ├─ service
 │  │  │           │  └─ impl
