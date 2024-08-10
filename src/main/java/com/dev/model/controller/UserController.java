@@ -29,7 +29,7 @@ import java.time.LocalDateTime;
  * @since 2024-03-10
  */
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/user")
 public class UserController {
     @Resource
     private IUserService userService;

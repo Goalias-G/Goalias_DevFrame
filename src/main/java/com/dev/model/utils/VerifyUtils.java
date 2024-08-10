@@ -9,7 +9,7 @@ import java.util.stream.IntStream;
 /**
  * 身份证校验
  */
-public class IdentityUtils {
+public class VerifyUtils {
 	/**   身份证校验码 */
     private static final int[] COEFFICIENT_ARRAY = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
 
@@ -70,13 +70,13 @@ public class IdentityUtils {
         //进行正则匹配
         return m.matches();
     }
-    public String desensitizeEmail(String email) {
+    public static String desensitizeEmail(String email) {
         return DesensitizedUtil.email(email);
     }
-    public String desensitizePhone(String mobilePhone) {
+    public static String desensitizePhone(String mobilePhone) {
         return DesensitizedUtil.mobilePhone(mobilePhone);
     }
-    public String desensitizePassword(String password) {
+    public static String desensitizePassword(String password) {
         return DesensitizedUtil.password(password);
     }
 

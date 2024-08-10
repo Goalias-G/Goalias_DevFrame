@@ -109,8 +109,4 @@ public class TestSomething {
         }
     }
 
-    @Test
-    public void test2() {
-        emailUtil.sendHtmlMail("********@163.com", "测试邮件", emailUtil.findPasswordTemplate("aaa", "123456", "http://127.0.0.1:9999/login"));
-    }
 }
