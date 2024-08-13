@@ -26,7 +26,7 @@ public class CanalConfig {
 
     private String schema = ".*";
 
-    private String userTable = "..*";
+    private String table = "..*";
 
     private boolean insert = false;
 

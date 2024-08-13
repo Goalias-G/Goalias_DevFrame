@@ -7,6 +7,7 @@ import org.springframework.util.StringUtils;
 
 import java.lang.reflect.Field;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
@@ -65,7 +66,7 @@ public interface CanalHandleService {
         } else if (targetType == byte.class || targetType == Byte.class) {
             return Byte.parseByte(value);
         } else if (targetType == LocalDateTime.class){
-            return LocalDateTime.parse(value);//需要可以加类型
+            return LocalDateTime.parse(value, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));//需要可以加类型
         }else {
             throw new IllegalArgumentException("不支持的字段类型: " + targetType);
         }

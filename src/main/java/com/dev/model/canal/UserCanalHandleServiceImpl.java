@@ -30,7 +30,8 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     public void insertSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
             User user = getCanalEntity(new User(), rowData.getAfterColumnsList());
-            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
+            System.out.println(user);
+//            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
     }
 
@@ -38,7 +39,8 @@ public class UserCanalHandleServiceImpl implements CanalHandleService {
     public void updateSql(List<CanalEntry.RowData> rowDataList) {
         rowDataList.forEach(rowData -> {
             User user = getCanalEntity(new User(), rowData.getAfterColumnsList());
-            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
+            System.out.println(user);
+//            stringRedisTemplate.opsForValue().set("user:"+user.getId(), JSONUtil.toJsonStr(user));
         });
     }
 
