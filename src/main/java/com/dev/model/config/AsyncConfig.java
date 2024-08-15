@@ -12,17 +12,18 @@ import java.util.concurrent.*;
 @Configuration
 @EnableAsync
 public class AsyncConfig implements AsyncConfigurer {
-   public static ThreadPoolExecutor threadPoolExecutor=new ThreadPoolExecutor(
+
+   public static ThreadPoolExecutor goaliasThreadPool = new ThreadPoolExecutor(
            Runtime.getRuntime().availableProcessors(),
            Runtime.getRuntime().availableProcessors() * 2,
             1,
            TimeUnit.SECONDS,
            new LinkedBlockingQueue<>(),
-           ThreadFactoryBuilder.create().setNamePrefix("async thread-").build(),
+           ThreadFactoryBuilder.create().setNamePrefix("goalias thread-").build(),
            new ThreadPoolExecutor.CallerRunsPolicy());
     @Override
     public Executor getAsyncExecutor() {
-        return threadPoolExecutor;
+        return goaliasThreadPool;
     }
 
 

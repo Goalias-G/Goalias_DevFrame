@@ -17,8 +17,6 @@ public interface CanalHandleService {
 
     void createSql(List<CanalEntry.RowData> rowDataList);
 
-    void selectSql(List<CanalEntry.RowData> rowDataList);
-
     void insertSql(List<CanalEntry.RowData> rowDataList);
 
     void updateSql(List<CanalEntry.RowData> rowDataList);
@@ -26,7 +24,8 @@ public interface CanalHandleService {
     void deleteSql(List<CanalEntry.RowData> rowDataList);
 
     default <T> T getCanalEntity(T entity, List<CanalEntry.Column> columns){
-        Map<String, String> fieldMap = columns.stream().collect(Collectors.toMap(column -> FieldsUtil.underLineToCamel(column.getName()), CanalEntry.Column::getValue));
+        Map<String, String> fieldMap = columns.stream().collect(Collectors
+                .toMap(column -> FieldsUtil.underLineToCamel(column.getName()), CanalEntry.Column::getValue));
         Class<?> clazz = entity.getClass();
         List<Field> columnList = Arrays.stream(clazz.getDeclaredFields()).toList();
         for (Field field : columnList) {

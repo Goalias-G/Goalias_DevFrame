@@ -4,6 +4,8 @@ package com.dev.model.controller;
 import com.dev.model.context.exception.BizException;
 import com.dev.model.context.properties.ExceptionEnum;
 import com.dev.model.pojo.Result;
+import com.dev.model.pojo.entity.User;
+import com.dev.model.service.IUserService;
 import com.dev.model.service.RedisService;
 import com.dev.model.utils.EmailUtil;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ public class TestController {
 
     @Resource
     private EmailUtil emailUtil;
+    @Resource
+    private IUserService userService;
     @Resource
     private RedisService redisService;
 
@@ -45,6 +49,12 @@ public class TestController {
     @GetMapping("redis")
     public Result<String> redis(){
         redisService.set("test", "aa");
+        return Result.success("发送成功");
+    }
+
+    @GetMapping("canal")
+    public Result<String> canal(){
+        userService.save(new User("goalias","123456"));
         return Result.success("发送成功");
     }
 }

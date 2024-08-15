@@ -1,6 +1,5 @@
 package com.dev.model.context;
 
-import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.exceptions.ExceptionUtil;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -8,7 +7,6 @@ import com.alibaba.otter.canal.protocol.Message;
 import com.alibaba.otter.canal.protocol.exception.CanalClientException;
 import com.dev.model.canal.CanalHandleEnum;
 import com.dev.model.canal.CanalHandleService;
-import com.dev.model.canal.UserCanalHandleServiceImpl;
 import com.dev.model.config.CanalConfig;
 import com.dev.model.context.exception.BizException;
 import com.google.protobuf.InvalidProtocolBufferException;
@@ -23,7 +21,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -53,8 +50,8 @@ public class CanalClient implements ApplicationRunner, ApplicationContextAware {
             canalConnector.rollback();
             canalConnector.subscribe(canalConfig.getSchema() + "\\." + canalConfig.getTable());
         } catch (Exception e) {
-            logger.warn(ExceptionUtil.getMessage(e));
             logger.warn("########canal连接失败#######");
+            logger.warn(ExceptionUtil.getMessage(e));
             return;
         }
         while (true) {
@@ -96,11 +93,6 @@ public class CanalClient implements ApplicationRunner, ApplicationContextAware {
                     if (!canalConfig.isCreate()) break;
                     logger.info("[create]SqlLocation: {}-{}", entry.getHeader().getSchemaName(), entry.getHeader().getTableName());
                     handler.createSql(rowDatasList);
-                    break;
-                case QUERY:
-                    if (!canalConfig.isSelect()) break;
-                    logger.info("[select]SqlLocation: {}-{}", entry.getHeader().getSchemaName(), entry.getHeader().getTableName());
-                    handler.selectSql(rowDatasList);
                     break;
                 case INSERT:
                     if (!canalConfig.isInsert()) break;
