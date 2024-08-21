@@ -17,6 +17,7 @@ import com.tool.goalias.enums.FlowGradeEnum;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
 
 
@@ -40,8 +41,7 @@ public class UserController {
         return Result.success();
     }
     public Result getCodeFallback(@RequestBody String phone){
-        userService.sendCode(phone);
-        return Result.success();
+        return Result.success("请求频繁,请稍后再试");
     }
 
     @PostMapping("login")
@@ -65,7 +65,8 @@ public class UserController {
         return Result.success();
     }
     @GetMapping("getOne")
-    public Result getUser(){
+    public Result getUser(HttpServletResponse response){
+        response.setHeader("Cache-Control","max-age=200");//强制缓存
         Long userId = UserContext.getCurrentId();
         User userById = userService.getById(userId);
         return Result.success(userById);
@@ -89,7 +90,7 @@ public class UserController {
         userService.change(userDto);
         return Result.success();
     }
-    @PostMapping("deleteUser/{id}")
+    @PostMapping("delete/{id}")
     public Result deleteOne(@PathVariable String id){
         userService.removeById(Integer.parseInt(id));
         return Result.success();

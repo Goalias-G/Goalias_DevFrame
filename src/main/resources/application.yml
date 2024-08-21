@@ -24,8 +24,3 @@ spring:
       max-request-size: 100MB
   cache:
     type: redis
-  devtools:
-    restart:
-      enabled: true  #设置开启热部署
-      additional-paths: src/main/java #重启目录
-      exclude: WEB-INF/**
