@@ -21,6 +21,7 @@ public class AsyncConfig implements AsyncConfigurer {
            new LinkedBlockingQueue<>(),
            ThreadFactoryBuilder.create().setNamePrefix("goalias thread-").build(),
            new ThreadPoolExecutor.CallerRunsPolicy());
+   public  static  ScheduledThreadPoolExecutor goaliasScheduledThreadPool = new ScheduledThreadPoolExecutor(5);
     @Override
     public Executor getAsyncExecutor() {
         return goaliasThreadPool;

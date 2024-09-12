@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 @Component
 @Slf4j
-public class ListenerEvent {
+public class UserListenerEvent {
     @Async
     @EventListener(condition = "#userDto.id != null ")
     public void logListener(@NotNull UserDto userDto) {

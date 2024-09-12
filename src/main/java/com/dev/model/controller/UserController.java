@@ -60,7 +60,7 @@ public class UserController {
     }
     @GetMapping("add")
     public Result addUser(User user){
-        user.setRegisterTime(LocalDateTime.now());
+//        user.setRegisterTime(LocalDateTime.now());
         userService.save(user);
         return Result.success();
     }

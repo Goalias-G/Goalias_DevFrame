@@ -54,7 +54,7 @@ public class TestController {
 
     @GetMapping("canal")
     public Result<String> canal(){
-        userService.save(new User("goalias","123456"));
+//        userService.save(new User("goalias","123456"));
         return Result.success("发送成功");
     }
 }

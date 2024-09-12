@@ -20,6 +20,8 @@ import com.dev.model.utils.SMSUtils;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
@@ -64,12 +66,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
                 jwtProperties.getUserTtl(), claims);
         return LoginVO.builder()
                 .id(user.getId().longValue())
-                .account(user.getUsername())
+//                .account(user.getUsername())
                 .token(jwt)
                 .build();
     }
 
     @Override
+    @Cacheable(cacheNames = "cacheSpace1",keyGenerator = "keyGenerator",cacheManager = "redisCacheManager",unless = "#result==null")
     public UserVo userPageQuery(PageQueryDto pageQueryDto) {
         IPage<User> page = new Page<>(pageQueryDto.getPage(), pageQueryDto.getPageSize());
         IPage<User> userPage = userMapper.userPageQuery(page, pageQueryDto);
@@ -80,6 +83,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     }
 
     @Override
+    @CacheEvict(value = "cacheSpace1")
     public void change(@NotNull UserDto userDto) {
         if (!userDto.getPassword().isEmpty()) {
             applicationEventPublisher.publishEvent(userDto);

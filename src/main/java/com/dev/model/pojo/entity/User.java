@@ -36,20 +36,22 @@ public class User implements Serializable {
 
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
+    private String account;
+    @NotNull
+    private String password;
 
-    private String sex;
+/*    private String sex;
 
     @NotNull
     private String username;
 
-    @NotNull
-    private String password;
+
 
     private String phoneNumber;
 
     private Integer age;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
-    private LocalDateTime registerTime;
+    private LocalDateTime registerTime;*/
 
 }
