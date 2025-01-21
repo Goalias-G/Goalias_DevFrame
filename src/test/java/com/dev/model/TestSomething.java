@@ -1,5 +1,7 @@
 package com.dev.model;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.otter.canal.client.CanalConnector;
 import com.alibaba.otter.canal.client.CanalConnectors;
 import com.alibaba.otter.canal.protocol.CanalEntry;
@@ -26,13 +28,15 @@ public class TestSomething {
     private MinioClient minioClient;
     @Resource
     private ApplicationEventPublisher applicationEventPublisher;
+
     @Test
-    public void test(){
+    public void test() {
         UserDto userDto = new UserDto();
         userDto.setId(1);
         userDto.setPassword("<PASSWORD>");
         applicationEventPublisher.publishEvent(userDto);
     }
+
     @Test
     public void testCanal() {
         CanalConnector canalConnector = CanalConnectors.newSingleConnector(new InetSocketAddress(11111), "example", "", "");
@@ -102,6 +106,7 @@ public class TestSomething {
             canalConnector.ack(batchId);
         }
     }
+
     private static void printColumn(List<CanalEntry.Column> columns) {
         for (CanalEntry.Column column : columns) {
             System.out.println(column.getName() + " : " + column.getValue() + "    update=" + column.getUpdated());

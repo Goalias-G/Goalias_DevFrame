@@ -88,7 +88,7 @@ public class RequestLogAspect {
             logResponseStr.append("RequestIP    :").append(ip).append("\n");
             logResponseStr.append("RequestURI   :").append(requestURI).append("\n");
             logResponseStr.append("RunTime      :").append(stopwatch.elapsed(TimeUnit.MILLISECONDS)).append("ms\n");
-            logResponseStr.append("Result   :").append(result).append("\n");;
+            logResponseStr.append("Result   :").append(result).append("\n");
             logResponseStr.append("x-request-id :").append(xRequestId);
             log.info(logResponseStr.toString());
         } catch (Throwable e) {

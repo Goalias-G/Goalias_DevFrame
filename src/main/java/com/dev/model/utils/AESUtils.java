@@ -34,7 +34,7 @@ public class AESUtils {
         Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
         SecretKey keySpec = new SecretKeySpec(key, "AES");
         cipher.init(Cipher.ENCRYPT_MODE, keySpec);
-        return Base64.getEncoder().encodeToString(cipher.doFinal(input.getBytes(StandardCharsets.UTF_8))).replaceAll("\\+","%2B");
+        return Base64.getEncoder().encodeToString(cipher.doFinal(input.getBytes(StandardCharsets.UTF_8))).replace("\\+","%2B");
     }
 
     // 解密:
@@ -86,9 +86,9 @@ public class AESUtils {
         kgen.init(128);
         Cipher cipher = Cipher.getInstance(ALGORITHMSTR);
         // @remark modify start zwx488614 2019-11-19 V600R005C21L86HB3 对字符串的编码转换，添加指定编码方式"UTF-8"
-        IvParameterSpec iv = new IvParameterSpec(IV_KEY.getBytes("UTF-8"));
-        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(encryptKey.getBytes("UTF-8"), "AES"), iv);
-        return cipher.doFinal(content.getBytes("utf-8"));
+        IvParameterSpec iv = new IvParameterSpec(IV_KEY.getBytes(StandardCharsets.UTF_8));
+        cipher.init(Cipher.ENCRYPT_MODE, new SecretKeySpec(encryptKey.getBytes(StandardCharsets.UTF_8), "AES"), iv);
+        return cipher.doFinal(content.getBytes(StandardCharsets.UTF_8));
         // @remark modify end zwx488614 2019-11-19 V600R005C21L86HB3 对字符串的编码转换，添加指定编码方式"UTF-8"
     }
 
