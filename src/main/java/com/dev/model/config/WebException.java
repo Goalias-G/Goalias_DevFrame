@@ -2,8 +2,8 @@ package com.dev.model.config;
 
 
 import com.dev.model.context.exception.BizException;
+import com.dev.model.context.exception.ExceptionEnum;
 import com.dev.model.pojo.Result;
-import com.dev.model.context.properties.ExceptionEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -27,7 +27,7 @@ public class WebException {
     @ExceptionHandler(value =NullPointerException.class)
     public Result exceptionHandler(HttpServletRequest req, NullPointerException e){
         logger.error("发生空指针异常！原因是:{}",e.getMessage());
-        return Result.error(ExceptionEnum.BODY_NOT_MATCH);
+        return Result.error(ExceptionEnum.OBJECT_NULL_POINTER);
     }
 
 

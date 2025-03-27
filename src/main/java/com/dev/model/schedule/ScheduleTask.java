@@ -10,7 +10,7 @@ public class ScheduleTask {
 
     @Scheduled(cron = "0 0 6 ? * * ")
     public void doSomething() {
-        System.out.println("执行了。。。。。。");
+        System.out.println("执行定时任务");
     }
 
 }

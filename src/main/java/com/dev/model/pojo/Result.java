@@ -1,7 +1,7 @@
 package com.dev.model.pojo;
 
 import cn.hutool.json.JSONObject;
-import com.dev.model.context.properties.ExceptionEnum;
+import com.dev.model.context.exception.ExceptionEnum;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Result<T> {
+public class Result {
     private int code;
     private String msg;
-    private T data;
-    public static <T> Result<T> success(T data){
+    private Object data;
+    public static  Result success(Object data){
         return new Result(200,"返回成功",data);
     }
     public static Result success(){

@@ -25,11 +25,6 @@ public class LoginInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-       /* response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Credentials", "true"); //允许浏览器读取response的内容
-        response.setHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, PATCH, DELETE, OPTIONS");// 允许HTTP请求的方法
-        response.setHeader("Access-Control-Max-Age", "86400");// 设置请求preflight缓存的时间，单位 秒
-        response.setHeader("Access-Control-Allow-Headers", "*");// 表明服务器支持所有头信息字段 */
         // 如果是OPTIONS则结束请求
         if (HttpMethod.OPTIONS.toString().equals(request.getMethod())) {
             response.setStatus(HttpStatus.NO_CONTENT);

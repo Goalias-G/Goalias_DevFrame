@@ -30,7 +30,7 @@ import java.time.LocalDateTime;
  * @since 2024-03-10
  */
 @RestController
-@RequestMapping("/api/user")
+@RequestMapping("/user")
 public class UserController {
     @Resource
     private IUserService userService;
@@ -54,7 +54,7 @@ public class UserController {
     }
     @GetMapping("getAll")
     @GoaliasHot(grade = FlowGradeEnum.FLOW_GRADE_THREAD,count = 1000,duration = 1500)//1.5s内有一千个线程访问则限流
-    public Result<UserVo> getAll(PageQueryDto pageQueryDto){
+    public Result getAll(PageQueryDto pageQueryDto){
         UserVo userVo=userService.userPageQuery(pageQueryDto);
         return Result.success(userVo);
     }
@@ -72,7 +72,7 @@ public class UserController {
         return Result.success(userById);
     }
     @GetMapping("/{id}")
-    public Result<User> getById(@PathVariable Long id){
+    public Result getById(@PathVariable Long id){
         User user = userService.getById(id);
         return Result.success(user);
     }

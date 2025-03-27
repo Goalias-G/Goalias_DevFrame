@@ -1,8 +1,13 @@
 package com.dev.model.utils;
 
 import cn.hutool.core.exceptions.ExceptionUtil;
+import com.dev.model.config.MinioConfig;
 import io.minio.*;
 import io.minio.http.Method;
+import io.minio.messages.DeleteError;
+import io.minio.messages.DeleteObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -11,13 +16,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.*;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 @Component
 public class IOUtil {
     @Resource
     private  MinioClient minioClient;
-    public  boolean isExist(String bucketName) {
+
+    @Resource
+    private MinioConfig minioConfig;
+
+    private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
+    public  boolean isBucketExist(String bucketName) {
         try {
             return minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
         } catch (Exception e) {
@@ -25,9 +37,8 @@ public class IOUtil {
             return false;
         }
     }
-    public  String uploadFile(String bucketName, String objectName, FileInputStream file) {
-        try {
-            minioClient.uploadObject(UploadObjectArgs.builder().bucket(bucketName).object(objectName).build());
+    public String uploadFile(String bucketName, String objectName, InputStream file) {
+        try (file) {
             ObjectWriteResponse owr = minioClient.putObject(PutObjectArgs.builder()
                     .bucket(bucketName)
                     .object(objectName)
@@ -35,8 +46,36 @@ public class IOUtil {
                     .build());
             return owr.object();
         } catch (Exception e) {
+            logger.error(ExceptionUtil.stacktraceToString(e));
+            return null;
+        }
+    }
+
+    public String uploadFile(String bucketName, String objectName, String fileData) {
+        try {
+            ObjectWriteResponse owr = minioClient.uploadObject(
+                    UploadObjectArgs.builder()
+                            .bucket(bucketName)
+                            .object(objectName)
+                            .filename(fileData)
+                            .build());
+            return owr.object();
+        } catch (Exception e) {
             ExceptionUtil.stacktraceToString(e);
             return null;
+        }
+    }
+
+    public boolean isObjectExist(String bucketName, String objectName) {
+        try {
+            minioClient.statObject(StatObjectArgs.builder()
+                    .bucket(bucketName)
+                    .object(objectName)
+                    .build());
+            return true;
+        } catch (Exception e) {
+            logger.info("MinIO对象不存在: {}/{}", bucketName, objectName);
+            return false;
         }
     }
     public  void downloadFile(String bucketName, String objectName, String targetFilePath) {
@@ -49,32 +88,33 @@ public class IOUtil {
             ExceptionUtil.stacktraceToString(e);
         }
     }
-    public  void downloadFile2(String bucketName, String objectName, String targetFilePath) {
-        try(FileOutputStream fos = new FileOutputStream(targetFilePath)) {
-            GetObjectResponse object = minioClient.getObject(GetObjectArgs.builder()
+
+    public void delFile(String bucketName, java.util.List<String> objectNames) {
+        List<DeleteObject> deleteObjects = new ArrayList<>();
+        objectNames.forEach(objectName -> {
+            deleteObjects.add(new DeleteObject(objectName));
+        });
+        try {
+            boolean bucketExist = isBucketExist(bucketName);
+            if (!bucketExist){
+                return;
+            }
+            Iterable<Result<DeleteError>> results = minioClient.removeObjects(RemoveObjectsArgs.builder()
                     .bucket(bucketName)
-                    .object(objectName)
+                    .objects(deleteObjects)
                     .build());
-            FileInputStream fis = new FileInputStream(object.bucket());
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            byte[] buffer = new byte[1024];
-            int bytesRead;
-            while ((bytesRead = bis.read(buffer)) != -1) {
-                fos.write(buffer, 0, bytesRead);
+            for (Result<DeleteError> result : results) {
+                DeleteError error = result.get();
+                logger.error("minio 删除错误 {}；{}" , error.objectName() , error.message());
             }
         } catch (Exception e) {
-            ExceptionUtil.stacktraceToString(e);
+            logger.error(ExceptionUtil.stacktraceToString(e));
         }
     }
 
     public  String getUrl(String bucketName, String objectName) {
         try {
-            return minioClient.getPresignedObjectUrl(GetPresignedObjectUrlArgs.builder()
-                    .bucket(bucketName)
-                    .object(objectName)
-                    .expiry(60 * 30, TimeUnit.SECONDS)
-                    .method(Method.GET)
-                    .build());
+            return minioConfig.getEndpoint() + "/" + bucketName + "/" + objectName;
         } catch (Exception e) {
             ExceptionUtil.stacktraceToString(e);
             return null;

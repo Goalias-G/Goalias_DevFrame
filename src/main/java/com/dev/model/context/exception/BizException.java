@@ -1,6 +1,5 @@
 package com.dev.model.context.exception;
 
-import com.dev.model.context.properties.ExceptionEnum;
 import lombok.Data;
 
 @Data
@@ -23,8 +22,8 @@ public class BizException extends RuntimeException{
 
 
     public BizException(String errorMsg) {
-        super(errorMsg);
         this.errorMsg = errorMsg;
+        this.errorCode = 550;
     }
 
     public BizException(Integer errorCode, String errorMsg) {

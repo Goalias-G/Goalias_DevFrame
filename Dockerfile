@@ -14,4 +14,4 @@ COPY goaliasApp.jar app.jar
 EXPOSE 9999
 
 # 定义启动命令
-ENTRYPOINT ["java", "-jar", "app.jar"]
+ENTRYPOINT ["java", "-Xms512m", "-Xmx512m","-jar", "app.jar"]
