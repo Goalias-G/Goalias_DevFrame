@@ -3,9 +3,9 @@
 ## author: Goalias-G
 
 
-![Java-17](https://img.shields.io/badge/Java-17.0.9-blue)![SpringBoot-2.7.8](https://img.shields.io/badge/SpringBoot-2.7.8-green)![GoaliasLimiter-1.0.3](https://img.shields.io/badge/GoaliasLimiter-1.0.3.RELEASE-purple)
+![Java-17](https://img.shields.io/badge/Java-17.0.9-blue)![SpringBoot-3.3.6](https://img.shields.io/badge/SpringBoot-3.3.6-green)![GoaliasLimiter-1.0.3](https://img.shields.io/badge/GoaliasLimiter-1.0.3.RELEASE-purple)
 
-![MybatisPlus-3.5.4](https://img.shields.io/badge/MybatisPlus-3.5.4.RELEASE-orange)![Canal-1.1.5](https://img.shields.io/badge/Canal-1.1.5.RELEASE-orange)![Minio-8.5.11](https://img.shields.io/badge/Minio-8.5.11.RELEASE-orange)![Sentinel-1.8.6](https://img.shields.io/badge/Sentinel-1.8.6.RELEASE-orange)
+![MybatisPlus-3.5.7](https://img.shields.io/badge/MybatisPlus-3.5.7.RELEASE-orange)![Canal-1.1.5](https://img.shields.io/badge/Canal-1.1.5.RELEASE-orange)![Minio-8.5.11](https://img.shields.io/badge/Minio-8.5.11.RELEASE-orange)![Sentinel-1.8.6](https://img.shields.io/badge/Sentinel-1.8.6.RELEASE-orange)
 
 ### 项目地址：https://github.com/Goalias-G/Goalias_DevFrame
 
