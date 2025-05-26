@@ -8,6 +8,7 @@ import io.minio.messages.DeleteError;
 import io.minio.messages.DeleteObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -27,6 +28,9 @@ public class IOUtil {
 
     @Resource
     private MinioConfig minioConfig;
+
+    @Value("${goalias.minio.mediaUrl}")
+    private String mediaUrl;
 
     private static final Logger logger = LoggerFactory.getLogger(IOUtil.class);
     public  boolean isBucketExist(String bucketName) {
@@ -114,7 +118,7 @@ public class IOUtil {
 
     public  String getUrl(String bucketName, String objectName) {
         try {
-            return minioConfig.getEndpoint() + "/" + bucketName + "/" + objectName;
+            return mediaUrl + bucketName + "/" + objectName;
         } catch (Exception e) {
             ExceptionUtil.stacktraceToString(e);
             return null;

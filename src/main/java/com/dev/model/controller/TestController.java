@@ -9,6 +9,9 @@ import com.dev.model.service.IUserService;
 import com.dev.model.service.RedisService;
 import com.dev.model.utils.EmailUtil;
 import com.dev.model.utils.ExcelUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,9 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import javax.annotation.Resource;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -81,12 +82,5 @@ public class TestController {
     public Result canal(){
 //        userService.save(new User("goalias","123456"));
         return Result.success("发送成功");
-    }
-    @GetMapping(value = "/sse", produces = "text/event-stream;charset=UTF-8")
-    public SseEmitter chat() throws IOException {
-        SseEmitter sseEmitter = new SseEmitter();
-        sseEmitter.send("hello");
-        sseEmitter.complete();
-        return sseEmitter;
     }
 }

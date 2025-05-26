@@ -1,17 +1,17 @@
 package com.dev.model.utils;
 
 import com.dev.model.context.exception.BizException;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.core.io.FileSystemResource;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.io.File;
 import java.util.Objects;
 
@@ -60,10 +60,9 @@ public class EmailUtil {
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setText(text);
-
             FileSystemResource file = new FileSystemResource(new File(filePath));
             helper.addAttachment(Objects.requireNonNull(file.getFilename()), file);
-        } catch (MessagingException e) {
+        } catch (Exception e) {
             throw new BizException(0, "附件邮件发送失败");
         }
 
@@ -79,7 +78,7 @@ public class EmailUtil {
      */
     @Async("email")
     public void sendHtmlMail(String to, String subject, String html) {
-        javax.mail.internet.MimeMessage mimeMessage = mailSender.createMimeMessage();
+        MimeMessage mimeMessage = mailSender.createMimeMessage();
 
         try {
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, true);

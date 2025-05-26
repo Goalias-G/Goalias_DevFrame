@@ -25,6 +25,7 @@ goalias:
     endpoint:
   minio:
     endpoint: http://minio-goalias:9000
+    mediaUrl:
     accessKey:
     secretKey:
   canal:

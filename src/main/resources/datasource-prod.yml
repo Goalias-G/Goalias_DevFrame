@@ -47,14 +47,15 @@ spring:
           slow-sql-millis: 5000
           # 合并多个连接池的监控数据，默认false
           merge-sql: false
-  redis:
-    host: redis-goalias
-    port: 6379
-    password:
-    database: 0
-    lettuce:
-      pool:
-        max-active: 10
-        max-idle: 10
-        min-idle: 1
-        time-between-eviction-runs: 10s
+  data:
+    redis:
+      host: redis-goalias
+      port: 6379
+      password:
+      database: 0
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 10
+          min-idle: 1
+          time-between-eviction-runs: 10s

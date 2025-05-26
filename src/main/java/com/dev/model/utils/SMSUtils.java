@@ -80,7 +80,7 @@ public class SMSUtils {
         SendSmsRequest sendSmsRequest = new com.aliyun.dysmsapi20170525.models.SendSmsRequest()
                 .setPhoneNumbers(mobile)
                 .setSignName("dev_frame")//注册签名
-                .setTemplateCode("SMS_465407442")//模板
+                .setTemplateCode("SMS_********")//模板
                 .setTemplateParam("{'code':" + code + "}");
         Client client = null;
         try {

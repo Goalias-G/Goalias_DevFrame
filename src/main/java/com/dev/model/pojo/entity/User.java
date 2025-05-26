@@ -39,6 +39,7 @@ public class User implements Serializable {
     private String account;
     @NotNull
     private String password;
+    private Boolean isSpecifyURL;
 
 /*    private String sex;
 

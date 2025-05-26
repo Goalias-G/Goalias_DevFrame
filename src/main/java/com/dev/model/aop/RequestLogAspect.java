@@ -7,6 +7,7 @@ import com.dev.model.pojo.Result;
 import com.dev.model.utils.IPUtil;
 import com.google.common.base.Stopwatch;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -22,7 +23,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
@@ -109,7 +109,7 @@ public class RequestLogAspect {
                 "Exception    :" + e.getMessage() + "\n";
             log.error(logErrorStr);
             log.error("ExceptionStackTrace   :", e);
-            return Result.error("common.fail");
+            return Result.error("系统异常!");
         } finally {
             MDC.put("runTime", String.valueOf(stopwatch.elapsed(TimeUnit.MILLISECONDS)));
             MDC.put("url", requestURI);
