@@ -40,7 +40,7 @@ Goalias_DevModel
 │  │  │     └─ dev
 │  │  │        └─ model
 │  │  │           ├─ DevModelApplication.java
-│  │  │           ├─ Event          spring事件监听器
+│  │  │           ├─ event          spring事件监听器
 │  │  │           ├─ aop            
 │  │  │           ├─ canal          canal处理Handler
 │  │  │           ├─ config         

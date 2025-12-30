@@ -1,4 +1,4 @@
-package com.dev.model.Event;
+package com.dev.model.event;
 
 import com.dev.model.pojo.dto.UserDto;
 import lombok.extern.slf4j.Slf4j;
